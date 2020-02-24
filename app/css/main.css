@@ -1,0 +1,742 @@
+html,body {
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 200;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Book.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Book.woff) format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Book.ttf)
+      format('truetype');
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.woff)
+      format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.ttf)
+      format('truetype');
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.woff) format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.ttf)
+      format('truetype');
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #0a222e;
+  background-repeat: repeat-x;
+  font-family: 'salesforce-sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.background-1 {
+  background-image: url('../images/mountains.svg'), url('../images/stars.svg'),
+    linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
+  background-size: auto 40%, auto 60%, 100% 60%;
+  background-position: center bottom 50%, center top, center top;
+}
+body.background-2 {
+  background-image: url('../images/mountains2.svg'), url('../images/stars.svg'),
+    linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
+  background-size: auto 60%, auto 60%, 100% 60%;
+  background-position: center bottom 75%, center top, center top;
+}
+body.background-3 {
+  background-image: url('../images/hills.svg'), url('../images/stars.svg'),
+    linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
+  background-size: auto 45%, auto 60%, 100% 60%;
+  background-position: center bottom 55%, center top, center top;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+
+#shooting-star-right {
+  position: absolute;
+  top: -10%;
+  left: 10%;
+  opacity: 0;
+}
+
+
+#shooting-star-left {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  opacity: 0;
+}
+
+#tent {
+  height: 40%;
+  position: absolute;
+  right: 71%;
+  bottom: 8%;
+}
+
+#regional-flags {
+  height: 50%;
+  position: absolute;
+  left: 15%;
+  bottom: 20%;
+}
+
+#flagpole {
+  height: 100%;
+  position: absolute;
+  transform: translateX(-60%);
+}
+
+.flag {
+  position: absolute;
+  height: 15%;
+  top: 5.5%;
+  z-index: -1;
+}
+
+.flag:nth-child(3) {
+  top: 22%;
+}
+
+#trees {
+  height: 45%;
+  position: absolute;
+  right: 5%;
+  bottom: 25%;
+}
+
+#characters {
+  width: 70%;
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-42%);
+  z-index: 5;
+}
+
+#characters-svg > svg {
+  width: 175%;
+  height: 95%;
+  position: absolute;
+  left: 0;
+  bottom: 10%;
+  transform: translateX(-22%);
+}
+
+#fire,
+#fire-glow {
+  height: 60%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) !important;
+  z-index: 6;
+}
+
+#fire-embers1,
+#fire-embers2 {
+  opacity: 0;
+  height: 34%;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-65%);
+  z-index: 5;
+}
+
+#fire-embers2 {
+  transform: translateX(-63%);
+}
+
+#fire-embers > svg {
+  width: 160%;
+  height: 110%;
+  position: absolute;
+  left: 20.5%;
+  bottom: -0.8%;
+}
+
+#submissions {
+  position: absolute;
+  bottom: 20%;
+  height: 50%;
+  left: 20%;
+}
+
+#submissions > img {
+  height: 100%;
+}
+
+/* fire animations */
+
+#fire-embers {
+  /* display: none; */
+}
+
+#fire-embers [id^='ember-'] {
+  /* opacity: 0; */
+  fill: #ffd86c;
+}
+#fire-embers [id^='b-'] {
+  fill: #ffe092;
+}
+
+@keyframes ember-sm {
+  0% {
+    opacity: 0;
+    transform: translate(0, 15%);
+  }
+  2% {
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-0.3%, 10%);
+  }
+  40% {
+    transform: translate(0.3%, 5%);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-0.3%, 0%);
+  }
+  80% {
+    opacity: 0;
+    transform: translate(0.3%, -5%);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* #fire-embers #ember-22 {
+  animation: ember-sm infinite 3000ms linear;
+}
+#fire-embers #ember-23 {
+  animation: ember-sm infinite 5000ms linear 700ms;
+}
+#fire-embers #ember-24 {
+  animation: ember-sm infinite 5000ms linear 200ms;
+}
+#fire-embers #ember-25 {
+  animation: ember-sm infinite 3000ms linear 900ms;
+}
+#fire-embers #ember-26 {
+  animation: ember-sm infinite 5000ms linear 500ms;
+}
+#fire-embers #ember-27 {
+  animation: ember-sm infinite 4000ms linear 1000ms;
+}
+#fire-embers #ember-28 {
+  animation: ember-sm infinite 6000ms linear 500ms;
+}
+#fire-embers #ember-29 {
+  animation: ember-sm infinite 5000ms linear 1200ms;
+}
+#fire-embers #ember-30 {
+  animation: ember-sm infinite 3000ms linear;
+}
+#fire-embers #ember-31 {
+  animation: ember-sm infinite 2000ms linear 200ms;
+}
+#fire-embers #ember-32 {
+  animation: ember-sm infinite 5000ms linear 500ms;
+} */
+
+@keyframes ember-md {
+  0% {
+    opacity: 0;
+    transform: translate(0, 25%);
+  }
+  2% {
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-0.3%, 15%);
+  }
+  40% {
+    transform: translate(0.3%, 5%);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-0.3%, -5%);
+  }
+  80% {
+    opacity: 0;
+    transform: translate(0.3%, -10%);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* #fire-embers #ember-10 {
+  animation: ember-sm infinite 3000ms linear;
+}
+#fire-embers #ember-11 {
+  animation: ember-sm infinite 3000ms linear 300ms;
+}
+#fire-embers #ember-12 {
+  animation: ember-sm infinite 4000ms linear 200ms;
+}
+#fire-embers #ember-13 {
+  animation: ember-sm infinite 3000ms linear 500ms;
+}
+#fire-embers #ember-14 {
+  animation: ember-sm infinite 5000ms linear 400ms;
+}
+#fire-embers #ember-15 {
+  animation: ember-sm infinite 3000ms linear 300ms;
+}
+#fire-embers #ember-16 {
+  animation: ember-sm infinite 2000ms linear 200ms;
+}
+#fire-embers #ember-17 {
+  animation: ember-sm infinite 3000ms linear 100ms;
+}
+#fire-embers #ember-18 {
+  animation: ember-sm infinite 4000ms linear;
+}
+#fire-embers #ember-19 {
+  animation: ember-sm infinite 5000ms linear 400ms;
+}
+#fire-embers #ember-20 {
+  animation: ember-sm infinite 3000ms linear 300ms;
+}
+#fire-embers #ember-21 {
+  animation: ember-sm infinite 6000ms linear 600ms;
+} */
+
+@keyframes ember-lg {
+  0% {
+    opacity: 0;
+    transform: translate(0, 40%);
+  }
+  2% {
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-0.3%, 25%);
+  }
+  40% {
+    transform: translate(0.3%, 10%);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-0.3%, -5%);
+  }
+  80% {
+    opacity: 0;
+    transform: translate(0.3%, -20%);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* #fire-embers #ember-01 {
+  animation: ember-sm infinite 3000ms linear;
+}
+#fire-embers #ember-02 {
+  animation: ember-sm infinite 4000ms linear 300ms;
+}
+#fire-embers #ember-03 {
+  animation: ember-sm infinite 5000ms linear 400ms;
+}
+#fire-embers #ember-04 {
+  animation: ember-sm infinite 2000ms linear 500ms;
+}
+#fire-embers #ember-05 {
+  animation: ember-sm infinite 3000ms linear 600ms;
+}
+#fire-embers #ember-06 {
+  animation: ember-sm infinite 3000ms linear 200ms;
+}
+#fire-embers #ember-07 {
+  animation: ember-sm infinite 6000ms linear 300ms;
+}
+#fire-embers #ember-08 {
+  animation: ember-sm infinite 4000ms linear 400ms;
+}
+#fire-embers #ember-09 {
+  animation: ember-sm infinite 3000ms linear 100ms;
+} */
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* 
+#fire-embers [id^='b-group-'] {
+  animation: blink infinite 700ms alternate ease-in-out;
+}
+
+#fire-embers #b-group-02 {
+  animation-duration: 600ms;
+}
+#fire-embers #b-group-03 {
+  animation-duration: 600ms;
+  animation-delay: 300ms;
+}
+#fire-embers #b-group-04 {
+  animation-delay: 300ms;
+}
+#fire-embers #b-group-05 {
+  animation-delay: 500ms;
+}
+#fire-embers #b-group-06 {
+  animation-duration: 800ms;
+}
+#fire-embers #b-group-07 {
+  animation-duration: 800ms;
+  animation-delay: 300ms;
+}
+#fire-embers #b-group-08 {
+  animation-duration: 800ms;
+  animation-delay: 500ms;
+}
+#fire-embers #b-group-09 {
+  animation-duration: 900ms;
+} */
+
+@keyframes glow {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  95% {
+    opacity: 1;
+  }
+}
+
+#fire-glow {
+  animation: glow 3000ms infinite ease-in-out;
+}
+
+/* title and architecture diagram */
+
+.auto-title {
+  position: absolute;
+  left: 0.5em;
+  top: 0.15em;
+  color: white;
+  font-size: 4vw;
+  text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+#architecture-diagram .diagram-clickable-area {
+  position: absolute;
+  bottom: 3vh;
+  opacity: 0;
+  right: 3vw;
+  width: 10vw;
+  height: 10vw;
+  background: #FFF;
+}
+
+#architecture-diagram > div {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    30deg,
+    rgba(0, 20, 50, 0.95) 0%,
+    rgba(11, 68, 114, 0.95) 60%
+  );
+}
+
+#architecture-diagram > div img {
+  display: block;
+  height: 90vh;
+}
+
+.architecture-diagram-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.zoomed-architecture-diagram {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* help command list */
+
+#command-help div {
+  zoom: 0.5;
+}
+
+@media screen and (min-width: 1280px) {
+  #command-help div {
+    zoom: 0.7;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  #command-help div {
+    zoom: 1;
+  }
+}
+
+#command-help div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    30deg,
+    rgba(0, 20, 50, 0.95) 0%,
+    rgba(11, 68, 114, 0.95) 60%
+  );
+}
+
+#command-help h2 {
+  color: #FFFFFF;
+  font-size: 3em;
+}
+
+
+#command-help td,
+#command-help th {
+  padding: 10px;
+  font-size: 1.4em;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+#command-help td:nth-child(2) {
+  padding-left: 40px;
+}
+
+#command-help td:first-child {
+  font-size: 1.8em;
+}
+
+#command-help span {
+  border: solid 3px #FFFFFF;
+  border-radius: 6px;
+  padding: 3px;
+  text-align: center;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+/* dialogue */
+
+.talk-bubble {
+  width: 20vw;
+  padding: 20px 25px;
+  position: absolute;
+  background-color: #032041;
+  border: 1px solid #c4c4c4;
+  font-size: 1.3vw;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.talk-bubble.char-1 {
+  left: 15%;
+  bottom: 130%;
+}
+.talk-bubble.char-2 {
+  left: 28%;
+  bottom: 110%;
+}
+.talk-bubble.char-3 {
+  right: 42%;
+  bottom: 120%;
+}
+.talk-bubble.char-4 {
+  right: 35%;
+  bottom: 110%;
+}
+
+.talk-bubble:before,
+.talk-bubble:after {
+  content: '';
+  position: absolute;
+}
+
+/* right side of the fire */
+.talk-bubble.char-3:before,
+.talk-bubble.char-4:before {
+  right: 49px;
+  bottom: -84px;
+  border-top: 83px solid #c4c4c4;
+  border-left: 52px solid transparent;
+}
+.talk-bubble.char-3:after,
+.talk-bubble.char-4:after {
+  right: 50px;
+  bottom: -80px;
+  border-top: 80px solid #032041;
+  border-left: 50px solid transparent;
+}
+
+/* left side of the fire */
+.talk-bubble.char-1:before,
+.talk-bubble.char-2:before {
+  left: 49px;
+  bottom: -84px;
+  border-top: 83px solid #c4c4c4;
+  border-right: 52px solid transparent;
+}
+.talk-bubble.char-1:after,
+.talk-bubble.char-2:after {
+  left: 50px;
+  bottom: -80px;
+  border-top: 80px solid #032041;
+  border-right: 50px solid transparent;
+}
+
+/* Logos */
+#logos {
+  width: 100%;
+  padding-bottom: 6em;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0)
+  );
+  z-index: 3;
+}
+
+/* URL and QR code */
+#attendee-cta {
+  width: 100%;
+  padding: 2vw;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0)
+  );
+  color: white;
+  z-index: 1;
+}
+
+#attendee-cta .container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#attendee-cta h1 {
+  font-weight: 500;
+  font-size: 3.2vw;
+}
+
+#cta-url {
+  margin-top: 8vh;
+  text-align: left;
+}
+
+#QR-code {
+  width: 17vw;
+  text-align: center;
+}
+
+#QR-code p {
+  white-space: nowrap;
+}
+
+#QR-code-container {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: white;
+}
+
+#QR-code-container svg {
+  display: block;
+}
+
+#attendee-cta p {
+  font-size: .8vw;
+}
+
+/* Hidden links */
+.hidden-link {
+  width: 100px;
+  height: 100px;
+  display: block;
+  position: fixed;
+  top: 0;
+  opacity: 0;
+}
+
+.hidden-link.heroku {
+  left: 0;
+}
+.hidden-link.github {
+  right: 0;
+}
+
+[data-step] {
+  display: none;
+}

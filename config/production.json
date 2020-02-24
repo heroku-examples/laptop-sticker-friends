@@ -1,0 +1,7 @@
+{
+  "hapi": {
+    "host": "$$HOST",
+    "port": "$$PORT::number"
+  },
+  "db": "$DATABASE_URL"
+}

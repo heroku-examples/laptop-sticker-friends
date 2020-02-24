@@ -1,0 +1,25 @@
+{
+  "name": "Friends from the Trail Heroku Demo",
+  "description": "",
+  "website": "https://friends-from-the-trail.herokuapp.com",
+  "repository": "https://github.com/heroku-examples/friends-from-the-trail",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    "heroku-kafka:basic-0",
+    "bucketeer:micro",
+    "heroku-postgresql:hobby-basic"
+  ],
+  "environments": {
+    "review": {
+      "addons": [
+        "heroku-kafka:basic-0",
+        "bucketeer:micro",
+        "heroku-postgresql:hobby-basic"
+      ]
+    }
+  }
+}
