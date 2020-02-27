@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { random } from 'lodash'
 import useInterval from '@use-it/interval'
@@ -9,14 +9,7 @@ import useDisappearingState from './useDisappearingState'
 import config from './config'
 import constants from '../src/constants'
 
-import shootingStarLeft from './images/shooting-star-left.svg'
-import shootingStarRight from './images/shooting-star-right.svg'
-import tent from './images/tent.svg'
-import trees from './images/trees.svg'
-import fireGlow from './images/fire-glow.svg'
-import fire from './images/fire.svg'
 import charactersSvg from '!svg-inline-loader!./images/characters.svg'
-import fireEmbersPng from './images/fire-embers.png'
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.svg'
 import architectureDiagramZoom from './images/architecture-diagram-zoom.jpg'
@@ -116,6 +109,8 @@ const App = ({ ws }) => {
   })
 
   useEffect(() => {
+    
+    animate.initAnimation()
     api('/characters')
       .then((r) => r.json())
       .then(setCharacters)
@@ -192,14 +187,10 @@ const App = ({ ws }) => {
   // When auto mode is changed, reset to the first step for the new mode
   useEffect(() => setStep(auto ? INITIAL_AUTO_STEP : INITIAL_STEP), [auto])
 
-  useEffect(() => {
-    // TODO: this was for the behind the scenes indicators
-    // https://github.com/andyet/pure-heroku-demo/issues/16
-  }, [status])
 
   useEffect(() => {
     if (!characters) return
-    animate.initAnimation()
+    // animate.initAnimation()
     const nodes = Object.keys(characters).map((c) => document.getElementById(c))
     nodes.forEach(
       (node) => (node.style.display = characters[node.id] ? 'block' : 'none')
@@ -247,8 +238,6 @@ const App = ({ ws }) => {
 
   return (
     <>
-      <img src={shootingStarLeft}  id="shooting-star-left" />
-      <img src={shootingStarRight} id="shooting-star-right" />
       <div id="submissions">
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
@@ -276,8 +265,7 @@ const App = ({ ws }) => {
       <div id="regional-flags">
         <Flag region={region} />
       </div>
-      <img src={tent} id="tent" />
-      <img src={trees} id="trees" />
+      <div id="ruby" style={{width:'200px'}}></div>
       {characters && (
         <div id="characters">
           <span
@@ -320,10 +308,7 @@ const App = ({ ws }) => {
           </div>
         </div>
       )}
-      <img src={fireGlow} id="fire-glow" />
-      <img src={fire} id="fire" />
-      <img id="fire-embers1" src={fireEmbersPng} />
-      <img id="fire-embers2" src={fireEmbersPng} />
+
       <img src={logos} id="logos" data-step="3" />
 
       {showQRCode && attendeeAppName && step!==3 && (
