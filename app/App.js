@@ -79,7 +79,7 @@ const App = ({ ws }) => {
   const [auto, setAuto] = useState(INITIAL_AUTO)
   const [status, setStatus] = useState()
   const [region] = useState(config.region)
-  
+  const [attendeeAppUrl, setAttendeeAppUrl] = useState(null)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -121,6 +121,17 @@ const App = ({ ws }) => {
       .then((r) => r.json())
       .then((data) => setAttendeeAppName(data.name))
   }, [])
+
+  useEffect(() => {
+
+    if (!attendeeAppName) return
+
+    if (attendeeAppName.startsWith('http')) {
+      setAttendeeAppUrl(attendeeAppName)
+    } else {
+      setAttendeeAppUrl(`https://${attendeeAppName}.herokuapp.com`)
+    }
+  }, [attendeeAppName])
 
   useEffect(() => {
 
@@ -170,18 +181,12 @@ const App = ({ ws }) => {
   useInterval(
     () => {
       // Making sure the selfie app is available
-      let url;
-      if (attendeeAppName.startsWith('http')) {
-        url = `${attendeeAppName}/health`
-      } else {
-        url = `https://${attendeeAppName}.herokuapp.com/health`
-      }
-      fetch(url).then(() => {
+      fetch(`${attendeeAppUrl}/health`).then(() => {
         setShowQRCode(true)
       }).catch((e) => {
         setShowQRCode(false)
       })
-    }, attendeeAppName? config.appCheck.interval : null
+    }, attendeeAppUrl? config.appCheck.interval : null
   )
 
   // When auto mode is changed, reset to the first step for the new mode
@@ -311,7 +316,7 @@ const App = ({ ws }) => {
 
       <img src={logos} id="logos" data-step="3" />
 
-      {showQRCode && attendeeAppName && step!==3 && (
+      {showQRCode && attendeeAppUrl && step!==3 && (
         <div id="attendee-cta" >
           <div className="container">
             <div id="QR-code">
@@ -319,12 +324,12 @@ const App = ({ ws }) => {
               <div id="QR-code-container">
                 <QRCode
                   renderAs="svg"
-                  value={`https://${attendeeAppName}.herokuapp.com`}
+                  value={attendeeAppUrl}
                   width="100%"
                   height="100%"
                 />
               </div>
-              <p>https://{attendeeAppName}.herokuapp.com</p>
+              <p>{attendeeAppUrl}</p>
             </div>
           </div>
         </div>
