@@ -1,15 +1,42 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef} from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { random } from 'lodash'
 import useInterval from '@use-it/interval'
 import QRCode from 'qrcode.react'
 import api from './api'
-import animate from './animate'
 import useDisappearingState from './useDisappearingState'
 import config from './config'
 import constants from '../src/constants'
 
+import laptopBGSvg from './images/laptop.svg'
+// import laptopBGSvg from './images/laptop-delete.png'
+
+import mainBackground from './images/gradient-background.svg'
+
 import charactersSvg from '!svg-inline-loader!./images/characters.svg'
+
+import useAnimation from './useAnimation';
+import stickerGo from './images/stickers/go.svg';
+import stickerClojure from './images/stickers/clojure.svg';
+import stickerJava from './images/stickers/java.svg';
+import stickerPhp from './images/stickers/php.svg';
+import stickerNode from './images/stickers/node.svg';
+import stickerPython from './images/stickers/python.svg';
+import stickerRuby from './images/stickers/ruby.svg';
+import stickerScala from './images/stickers/scala.svg';
+
+import stickerGoColor from './images/stickers/color/go.svg';
+import stickerClojureColor from './images/stickers/color/clojure.svg';
+import stickerJavaColor from './images/stickers/color/java.svg';
+import stickerPhpColor from './images/stickers/color/php.svg';
+import stickerNodeColor from './images/stickers/color/node.svg';
+import stickerPythonColor from './images/stickers/color/python.svg';
+import stickerRubyColor from './images/stickers/color/ruby.svg';
+import stickerScalaColor from './images/stickers/color/scala.svg';
+
+// import lottie  from 'lottie-web'
+// import * as rubyAnimationData from './lottie/ruby.json'
+
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.svg'
 import architectureDiagramZoom from './images/architecture-diagram-zoom.jpg'
@@ -70,6 +97,7 @@ const App = ({ ws }) => {
     config.characters.hideAfter,
     config.characters.max
   )
+  const [animations, initAnimation] = useAnimation()
   const [attendeeAppName, setAttendeeAppName] = useState(null)
   const [showQRCode, setShowQRCode] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
@@ -80,6 +108,8 @@ const App = ({ ws }) => {
   const [status, setStatus] = useState()
   const [region] = useState(config.region)
   const [attendeeAppUrl, setAttendeeAppUrl] = useState(null)
+  const [containerSize, setContainerSize] = useState(null)
+  // const [animations, setAnimations] = useState(null)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -109,8 +139,6 @@ const App = ({ ws }) => {
   })
 
   useEffect(() => {
-    
-    animate.initAnimation()
     api('/characters')
       .then((r) => r.json())
       .then(setCharacters)
@@ -193,15 +221,44 @@ const App = ({ ws }) => {
   useEffect(() => setStep(auto ? INITIAL_AUTO_STEP : INITIAL_STEP), [auto])
 
 
+  const resizeHandler = (ratio) => {
+    let fitWidth = ratio*window.innerHeight > window.innerWidth
+    let size = {}
+    if (fitWidth) {
+      size.width = '100vw'
+      size.height = window.innerWidth/ratio/window.innerHeight*100 + 'vh'
+    } else {
+      size.height = '100vh'
+      size.width =  window.innerHeight*ratio/window.innerWidth*100 + 'vw'
+    }
+    setContainerSize(size)
+  }
+
   useEffect(() => {
-    if (!characters) return
-    // animate.initAnimation()
-    const nodes = Object.keys(characters).map((c) => document.getElementById(c))
-    nodes.forEach(
-      (node) => (node.style.display = characters[node.id] ? 'block' : 'none')
-    )
-    return () => nodes.forEach((node) => (node.style.display = 'block'))
-  }, [characters])
+    let handler
+    const img = new Image()
+    img.onload = () => {
+      const ratio = img.width/img.height
+      resizeHandler(ratio)
+      handler = _.debounce(resizeHandler.bind(null, ratio), 500)
+      window.addEventListener('resize', handler)
+    }
+    //Using the laptop background imagage as the base size ratio of the container
+    img.src = laptopBGSvg
+    return () => {
+      window.removeEventListener('resize', handler)
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   if (!characters) return
+  //   // animate.initAnimation()
+  //   const nodes = Object.keys(characters).map((c) => document.getElementById(c))
+  //   nodes.forEach(
+  //     (node) => (node.style.display = characters[node.id] ? 'block' : 'none')
+  //   )
+  //   return () => nodes.forEach((node) => (node.style.display = 'block'))
+  // }, [characters])
 
   useEffect(() => {
     const className = `background-${background}`
@@ -211,7 +268,6 @@ const App = ({ ws }) => {
 
   useEffect(() => {
     const stepNodes = [...document.querySelectorAll('[data-step]')]
-
     stepNodes.forEach((node) => {
       const hideOrShow = node.getAttribute('data-step-action') || 'show'
       const takeAction = node
@@ -219,7 +275,6 @@ const App = ({ ws }) => {
         .split(',')
         .map((v) => Number(v))
         .includes(step)
-
       if (takeAction) {
         node.style.display = hideOrShow === 'show' ? 'block' : 'none'
       } else {
@@ -237,12 +292,37 @@ const App = ({ ws }) => {
       })
   }, [step])
 
+  useEffect(()=>{
+    if (characters && !animations) {
+      initAnimation()
+    }
+  }, [characters])
+
+  useEffect(() => {
+    if (!animations) return
+    animations.ruby.stop()
+
+    if (step === 7) {
+      animations.ruby.play()
+    }
+  }, [step])
+
   const toggleZoom = () => {
     setShowZoomedDiagram((prev) => !prev)
   }
 
   return (
-    <>
+    <div className={`step-${step} main-container`} 
+       style={containerSize ? {
+         width: containerSize.width,
+         height: containerSize.height 
+       } : {}} >
+      
+      <img src={mainBackground} className='main-background' />
+      <img src={laptopBGSvg} className='laptop' />
+      <div className="steam lottie"></div>
+      <div className="music lottie"></div>
+
       <div id="submissions">
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
@@ -270,13 +350,29 @@ const App = ({ ws }) => {
       <div id="regional-flags">
         <Flag region={region} />
       </div>
-      <div id="ruby" style={{width:'200px'}}></div>
+
       {characters && (
         <div id="characters">
-          <span
-            id="characters-svg"
-            dangerouslySetInnerHTML={{ __html: charactersSvg }}
-          />
+          <img src={stickerGo} className='sticker sticker-go' />
+          <img src={stickerJava} className='sticker sticker-java' />
+          <img src={stickerPhp} className='sticker sticker-php' />
+          <img src={stickerNode} className='sticker sticker-node' />
+          <img src={stickerScala} className='sticker sticker-scala' />
+          <img src={stickerClojure} className='sticker sticker-clojure' />
+          <img src={stickerRuby} className='sticker sticker-ruby' />
+          <img src={stickerPython} className='sticker sticker-python' />
+          
+          {/* Color */}
+          <img src={stickerGoColor} className='sticker sticker-go sticker-color' />
+          <img src={stickerJavaColor} className='sticker sticker-java sticker-color' />
+          <img src={stickerPhpColor} className='sticker sticker-php sticker-color' />
+          <img src={stickerNodeColor} className='sticker sticker-node sticker-color' />
+          <img src={stickerScalaColor} className='sticker sticker-scala sticker-color' />
+          <img src={stickerClojureColor} className='sticker sticker-clojure sticker-color' />
+          <div className='sticker sticker-ruby lottie' ></div>
+          <img src={stickerPythonColor} className='sticker sticker-python sticker-color' />
+
+          
           <div id="talk-sequence">
             <div className="talk-bubble char-1" data-step="1">
               What is Heroku?
@@ -317,22 +413,19 @@ const App = ({ ws }) => {
       <img src={logos} id="logos" data-step="3" />
 
       {showQRCode && attendeeAppUrl && step!==3 && (
-        <div id="attendee-cta" >
-          <div className="container">
-            <div id="QR-code">
-              <p>(zoom in to QR code with your camera app)</p>
-              <div id="QR-code-container">
-                <QRCode
-                  renderAs="svg"
-                  value={attendeeAppUrl}
-                  width="100%"
-                  height="100%"
-                />
-              </div>
-              <p>{attendeeAppUrl}</p>
-            </div>
-          </div>
+        <>
+        <div id="QR-code">
+          <QRCode
+            renderAs="svg"
+            value={attendeeAppUrl}
+            width="100%"
+            height="100%"
+          />
         </div>
+        <p id="QR-code-url">{attendeeAppUrl}</p>
+    
+        </>
+     
       )}
 
       {showHelp && (
@@ -398,7 +491,7 @@ const App = ({ ws }) => {
         rel="noopener noreferrer"
         className="hidden-link github"
       />
-    </>
+    </div>
   )
 }
 

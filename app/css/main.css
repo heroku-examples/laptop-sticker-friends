@@ -39,9 +39,9 @@ html,body {
 body {
   width: 100vw;
   height: 100vh;
+  background-size: cover;
   overflow: hidden;
   position: relative;
-  background-color: #0a222e;
   background-repeat: repeat-x;
   font-family: 'salesforce-sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
@@ -51,23 +51,30 @@ body {
 }
 
 /* body.background-1 {
-  background-image: url('../images/mountains.svg'), url('../images/stars.svg'),
+  background-image: url('../images/gradient-background.svg'), url('../images/stars.svg'),
     linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
   background-size: auto 40%, auto 60%, 100% 60%;
   background-position: center bottom 50%, center top, center top;
 }
 body.background-2 {
-  background-image: url('../images/mountains2.svg'), url('../images/stars.svg'),
+  background-image: url('../images/gradient-background.svg'), url('../images/stars.svg'),
     linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
   background-size: auto 60%, auto 60%, 100% 60%;
   background-position: center bottom 75%, center top, center top;
 }
 body.background-3 {
-  background-image: url('../images/hills.svg'), url('../images/stars.svg'),
+  background-image: url('../images/gradient-background.svg'), url('../images/stars.svg'),
     linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
   background-size: auto 45%, auto 60%, 100% 60%;
   background-position: center bottom 55%, center top, center top;
 } */
+
+body {
+  background-image: linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
+  /* background-image: url('../images/gradient-background.svg'); */
+    /* background-size: auto 40%, auto 60%, 100% 60%;
+  background-position: center bottom 50%, center top, center top; */
+}
 
 *,
 *:after,
@@ -75,9 +82,30 @@ body.background-3 {
   box-sizing: border-box;
 }
 
+.main-container {
+  background: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 300ms ease-in, height 300ms ease-in;
+}
 
+.laptop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height:100%;
+}
+
+.main-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 
 #regional-flags {
+  display: none;
   height: 50%;
   position: absolute;
   left: 15%;
@@ -101,14 +129,152 @@ body.background-3 {
   top: 22%;
 }
 
-#trees {
-  height: 45%;
+.steam {
   position: absolute;
-  right: 5%;
-  bottom: 25%;
+  width: 13%;
+  left: 11%;
+  top: 27%;
 }
 
-#characters {
+.music {
+  position: absolute;
+  width: 10%;
+  left: 91%;
+  top: 61%;
+}
+
+.sticker {
+  position: absolute;
+  transition: opacity 300ms ease-in 300ms;
+}
+
+.sticker-color {
+  opacity: 0;
+  z-index: 5;
+}
+
+.sticker-go {
+  left: 39.1%;
+  top: 53.8%;
+  width: 5.7%;
+}
+
+.step-1 .sticker-go {
+  opacity: 0;
+}
+
+.step-1 .sticker-go.sticker-color {
+  opacity: 1;
+}
+
+.sticker-java {
+  left: 56.1%;
+  top: 32.5%;
+  width: 9.5%;
+}
+
+.step-2 .sticker-java {
+  opacity: 0;
+}
+
+.step-2 .sticker-java.sticker-color {
+  opacity: 1;
+}
+
+.sticker-php {
+  left: 28.5%;
+  top: 64%;
+  width: 11.7%;
+}
+
+.step-3 .sticker-php {
+  opacity: 0;
+}
+
+.step-3 .sticker-php.sticker-color {
+  opacity: 1;
+}
+
+.sticker-node {
+  left: 28%;
+  top: 41%;
+  width: 4.5%;
+}
+
+.step-4 .sticker-node {
+  opacity: 0;
+}
+
+.step-4 .sticker-node.sticker-color {
+  opacity: 1;
+}
+
+
+.sticker-scala {
+  left: 34%;
+  top: 47%;
+  width: 3.2%;
+}
+
+.step-5 .sticker-scala {
+  opacity: 0;
+}
+
+.step-5 .sticker-scala.sticker-color {
+  opacity: 1;
+}
+
+.sticker-clojure {
+  left: 28.4%;
+  top: 54%;
+  width: 4.6%;
+}
+
+.step-6 .sticker-clojure {
+  opacity: 0;
+}
+
+.step-6 .sticker-clojure.sticker-color {
+  opacity: 1;
+}
+
+.sticker-ruby {
+  width: 4.8%;
+  top: 44%;
+  left: 64.7%;
+}
+
+.sticker-ruby.lottie {
+  width: 9.6%;
+  top: 37%;
+  left: 61.2%;
+  opacity: 0;
+}
+
+.step-7 .sticker-ruby {
+  opacity: 0;
+}
+
+.step-7 .sticker-ruby.lottie {
+  opacity: 1;
+}
+
+.sticker-python {
+  left: 39.8%;
+  top: 38.1%;
+  width: 5.8%;
+}
+
+.step-8 .sticker-python {
+  opacity: 0;
+}
+
+.step-8 .sticker-python.sticker-color {
+  opacity: 1;
+}
+
+
+/* #characters {
   width: 70%;
   height: 50%;
   position: absolute;
@@ -125,321 +291,15 @@ body.background-3 {
   left: 0;
   bottom: 10%;
   transform: translateX(-22%);
-}
-
-#fire,
-#fire-glow {
-  height: 60%;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) !important;
-  z-index: 6;
-}
-
-#fire-embers1,
-#fire-embers2 {
-  opacity: 0;
-  height: 34%;
-  position: absolute;
-  left: 50%;
-  bottom: 5%;
-  transform: translateX(-65%);
-  z-index: 5;
-}
-
-#fire-embers2 {
-  transform: translateX(-63%);
-}
-
-#fire-embers > svg {
-  width: 160%;
-  height: 110%;
-  position: absolute;
-  left: 20.5%;
-  bottom: -0.8%;
-}
-
-#submissions {
-  position: absolute;
-  bottom: 20%;
-  height: 50%;
-  left: 20%;
-}
-
-#submissions > img {
-  height: 100%;
-}
-
-/* fire animations */
-
-#fire-embers {
-  /* display: none; */
-}
-
-#fire-embers [id^='ember-'] {
-  /* opacity: 0; */
-  fill: #ffd86c;
-}
-#fire-embers [id^='b-'] {
-  fill: #ffe092;
-}
-
-@keyframes ember-sm {
-  0% {
-    opacity: 0;
-    transform: translate(0, 15%);
-  }
-  2% {
-    opacity: 1;
-  }
-  20% {
-    transform: translate(-0.3%, 10%);
-  }
-  40% {
-    transform: translate(0.3%, 5%);
-    opacity: 1;
-  }
-  60% {
-    transform: translate(-0.3%, 0%);
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0.3%, -5%);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* #fire-embers #ember-22 {
-  animation: ember-sm infinite 3000ms linear;
-}
-#fire-embers #ember-23 {
-  animation: ember-sm infinite 5000ms linear 700ms;
-}
-#fire-embers #ember-24 {
-  animation: ember-sm infinite 5000ms linear 200ms;
-}
-#fire-embers #ember-25 {
-  animation: ember-sm infinite 3000ms linear 900ms;
-}
-#fire-embers #ember-26 {
-  animation: ember-sm infinite 5000ms linear 500ms;
-}
-#fire-embers #ember-27 {
-  animation: ember-sm infinite 4000ms linear 1000ms;
-}
-#fire-embers #ember-28 {
-  animation: ember-sm infinite 6000ms linear 500ms;
-}
-#fire-embers #ember-29 {
-  animation: ember-sm infinite 5000ms linear 1200ms;
-}
-#fire-embers #ember-30 {
-  animation: ember-sm infinite 3000ms linear;
-}
-#fire-embers #ember-31 {
-  animation: ember-sm infinite 2000ms linear 200ms;
-}
-#fire-embers #ember-32 {
-  animation: ember-sm infinite 5000ms linear 500ms;
 } */
 
-@keyframes ember-md {
-  0% {
-    opacity: 0;
-    transform: translate(0, 25%);
-  }
-  2% {
-    opacity: 1;
-  }
-  20% {
-    transform: translate(-0.3%, 15%);
-  }
-  40% {
-    transform: translate(0.3%, 5%);
-    opacity: 1;
-  }
-  60% {
-    transform: translate(-0.3%, -5%);
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0.3%, -10%);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* #fire-embers #ember-10 {
-  animation: ember-sm infinite 3000ms linear;
-}
-#fire-embers #ember-11 {
-  animation: ember-sm infinite 3000ms linear 300ms;
-}
-#fire-embers #ember-12 {
-  animation: ember-sm infinite 4000ms linear 200ms;
-}
-#fire-embers #ember-13 {
-  animation: ember-sm infinite 3000ms linear 500ms;
-}
-#fire-embers #ember-14 {
-  animation: ember-sm infinite 5000ms linear 400ms;
-}
-#fire-embers #ember-15 {
-  animation: ember-sm infinite 3000ms linear 300ms;
-}
-#fire-embers #ember-16 {
-  animation: ember-sm infinite 2000ms linear 200ms;
-}
-#fire-embers #ember-17 {
-  animation: ember-sm infinite 3000ms linear 100ms;
-}
-#fire-embers #ember-18 {
-  animation: ember-sm infinite 4000ms linear;
-}
-#fire-embers #ember-19 {
-  animation: ember-sm infinite 5000ms linear 400ms;
-}
-#fire-embers #ember-20 {
-  animation: ember-sm infinite 3000ms linear 300ms;
-}
-#fire-embers #ember-21 {
-  animation: ember-sm infinite 6000ms linear 600ms;
-} */
-
-@keyframes ember-lg {
-  0% {
-    opacity: 0;
-    transform: translate(0, 40%);
-  }
-  2% {
-    opacity: 1;
-  }
-  20% {
-    transform: translate(-0.3%, 25%);
-  }
-  40% {
-    transform: translate(0.3%, 10%);
-    opacity: 1;
-  }
-  60% {
-    transform: translate(-0.3%, -5%);
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0.3%, -20%);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* #fire-embers #ember-01 {
-  animation: ember-sm infinite 3000ms linear;
-}
-#fire-embers #ember-02 {
-  animation: ember-sm infinite 4000ms linear 300ms;
-}
-#fire-embers #ember-03 {
-  animation: ember-sm infinite 5000ms linear 400ms;
-}
-#fire-embers #ember-04 {
-  animation: ember-sm infinite 2000ms linear 500ms;
-}
-#fire-embers #ember-05 {
-  animation: ember-sm infinite 3000ms linear 600ms;
-}
-#fire-embers #ember-06 {
-  animation: ember-sm infinite 3000ms linear 200ms;
-}
-#fire-embers #ember-07 {
-  animation: ember-sm infinite 6000ms linear 300ms;
-}
-#fire-embers #ember-08 {
-  animation: ember-sm infinite 4000ms linear 400ms;
-}
-#fire-embers #ember-09 {
-  animation: ember-sm infinite 3000ms linear 100ms;
-} */
-
-@keyframes blink {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-/* 
-#fire-embers [id^='b-group-'] {
-  animation: blink infinite 700ms alternate ease-in-out;
-}
-
-#fire-embers #b-group-02 {
-  animation-duration: 600ms;
-}
-#fire-embers #b-group-03 {
-  animation-duration: 600ms;
-  animation-delay: 300ms;
-}
-#fire-embers #b-group-04 {
-  animation-delay: 300ms;
-}
-#fire-embers #b-group-05 {
-  animation-delay: 500ms;
-}
-#fire-embers #b-group-06 {
-  animation-duration: 800ms;
-}
-#fire-embers #b-group-07 {
-  animation-duration: 800ms;
-  animation-delay: 300ms;
-}
-#fire-embers #b-group-08 {
-  animation-duration: 800ms;
-  animation-delay: 500ms;
-}
-#fire-embers #b-group-09 {
-  animation-duration: 900ms;
-} */
-
-@keyframes glow {
-  0% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0.75;
-  }
-  50% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 0.9;
-  }
-  70% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
-  }
-  95% {
-    opacity: 1;
-  }
-}
-
-#fire-glow {
-  animation: glow 3000ms infinite ease-in-out;
-}
 
 /* title and architecture diagram */
 
 .auto-title {
   position: absolute;
-  left: 0.5em;
-  top: 0.15em;
+  left: 14%;
+  top: 10%;
   color: white;
   font-size: 4vw;
   text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
@@ -645,53 +505,24 @@ body.background-3 {
 }
 
 /* URL and QR code */
-#attendee-cta {
-  width: 100%;
-  padding: 2vw;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0)
-  );
-  color: white;
-  z-index: 1;
-}
-
-#attendee-cta .container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-#attendee-cta h1 {
-  font-weight: 500;
-  font-size: 3.2vw;
-}
-
-#cta-url {
-  margin-top: 8vh;
-  text-align: left;
-}
-
 #QR-code {
-  width: 17vw;
-  text-align: center;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 10%;
+  padding: 1%;
+  background-color: #FFF;
 }
 
-#QR-code p {
-  white-space: nowrap;
+#QR-code-url {
+  position: absolute;
+  top: 3%;
+  left: 14%;
+  color: #795a9d;
+  font-size: 2rem;
 }
 
-#QR-code-container {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding: 1em;
-  background-color: white;
-}
-
-#QR-code-container svg {
+#QR-code svg {
   display: block;
 }
 
