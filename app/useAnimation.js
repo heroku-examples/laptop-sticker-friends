@@ -12,7 +12,7 @@ export default  () => {
 
   const initRuby = () => {
     return lottie.loadAnimation({
-      container: document.querySelectorAll('.sticker-ruby.lottie')[0], 
+      container: document.querySelectorAll('.sticker-ruby .lottie')[0], 
       renderer: 'svg',
       loop: true,
       autoplay: false,

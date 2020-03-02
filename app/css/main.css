@@ -83,10 +83,10 @@ body.background-3 {
 } */
 
 body {
-  background-image: linear-gradient(to bottom, #001432 0%, #0b4472 60%, #1679b7 100%);
-  /* background-image: url('../images/gradient-background.svg'); */
-    /* background-size: auto 40%, auto 60%, 100% 60%;
-  background-position: center bottom 50%, center top, center top; */
+  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%), 
+              linear-gradient(132deg, rgba(74,173,203,1) 0%, rgba(74,173,203,1) 20%, rgba(135,99,178,1) 50%, rgba(135,99,178,1) 80%) 0 50vh;
+  background-repeat: no-repeat;
+  background-size: 100vw 64.5vh;
 }
 
 *,
@@ -95,8 +95,7 @@ body {
   box-sizing: border-box;
 }
 
-.main-container {
-  background: #FFF;
+.laptop-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -224,11 +223,11 @@ body {
   width: 4.5%;
 }
 
-.step-4 .sticker-node {
+.step-4 .sticker-node .sticker-resting {
   opacity: 0;
 }
 
-.step-4 .sticker-node.sticker-color {
+.step-4 .sticker-node .sticker-color {
   opacity: 1;
 }
 
@@ -239,11 +238,11 @@ body {
   width: 3.2%;
 }
 
-.step-5 .sticker-scala {
+.step-5 .sticker-scala .sticker-resting {
   opacity: 0;
 }
 
-.step-5 .sticker-scala.sticker-color {
+.step-5 .sticker-scala .sticker-color {
   opacity: 1;
 }
 
@@ -253,11 +252,11 @@ body {
   width: 4.6%;
 }
 
-.step-6 .sticker-clojure {
+.step-6 .sticker-clojure .sticker-resting {
   opacity: 0;
 }
 
-.step-6 .sticker-clojure.sticker-color {
+.step-6 .sticker-clojure .sticker-color {
   opacity: 1;
 }
 
@@ -267,18 +266,24 @@ body {
   left: 64.7%;
 }
 
-.sticker-ruby.lottie {
-  width: 9.6%;
-  top: 37%;
-  left: 61.2%;
+.sticker-ruby .lottie {
+  position: absolute;
+  width: 200%;
+  /* 
+    % doesn't work for
+    Can't rely on the vw or vh so need to use em.
+    Please look at the very top of this file for the detail. 
+  */
+  top: -4em;
+  left: -3.6em;
   opacity: 0;
 }
 
-.step-7 .sticker-ruby {
+.step-7 .sticker-ruby .sticker-resting {
   opacity: 0;
 }
 
-.step-7 .sticker-ruby.lottie {
+.step-7 .sticker-ruby .sticker-color {
   opacity: 1;
 }
 
@@ -320,11 +325,12 @@ body {
 }
 
 #architecture-diagram > div {
-  width: 100vw;
-  height: 100vh;
+  width: 200%;
+  height: 100%;
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
+  transform: translate(-50%);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -584,6 +590,39 @@ body {
 .hidden-link.github {
   right: 0;
 }
+
+#submissions img {
+  width: 8%;
+  z-index: 4;
+  position: absolute;
+  border-radius: 5px;
+  border: solid 1px rgba(225,225,241,1);
+}
+
+#submissions img:nth-child(1) {
+  top: 27%;
+  left: 31%;
+  transform: rotate(-24deg);
+}
+
+#submissions img:nth-child(2) {
+  top: 29%;
+  left: 47%;
+  transform: rotate(12deg);
+}
+
+#submissions img:nth-child(3) {
+  top: 54%;
+  left: 57%;
+  transform: rotate(27deg);
+}
+
+#submissions img:nth-child(4) {
+  top: 64%;
+  left: 46%;
+  transform: rotate(-17deg);
+}
+
 
 [data-step] {
   display: none;

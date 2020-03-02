@@ -22,7 +22,7 @@ export default {
     interval: 25 * 1000
   },
   characters: {
-    max: 5,
+    max: 4,
     hideAfter: 60 * 1000
   }
 }

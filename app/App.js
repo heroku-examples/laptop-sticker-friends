@@ -9,11 +9,6 @@ import config from './config'
 import constants from '../src/constants'
 
 import laptopBGSvg from './images/laptop.svg'
-// import laptopBGSvg from './images/laptop-delete.png'
-
-import mainBackground from './images/gradient-background.svg'
-
-import charactersSvg from '!svg-inline-loader!./images/characters.svg'
 
 import useAnimation from './useAnimation';
 import stickerGo from './images/stickers/go.svg';
@@ -31,11 +26,8 @@ import stickerJavaColor from './images/stickers/color/java.svg';
 import stickerPhpColor from './images/stickers/color/php.svg';
 import stickerNodeColor from './images/stickers/color/node.svg';
 import stickerPythonColor from './images/stickers/color/python.svg';
-import stickerRubyColor from './images/stickers/color/ruby.svg';
 import stickerScalaColor from './images/stickers/color/scala.svg';
 
-// import lottie  from 'lottie-web'
-// import * as rubyAnimationData from './lottie/ruby.json'
 
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.svg'
@@ -238,6 +230,9 @@ const App = ({ ws }) => {
       size.width =  size.widthPx/window.innerWidth*100 + 'vw'
     }
     setFitWidth(_fitWidth)
+    // if (_fitWidth) {
+    //   document.body.classList.add('fit-width')
+    // }
     setContainerSize(size)
   }
 
@@ -326,10 +321,8 @@ const App = ({ ws }) => {
   } : {}
 
   return (
-    <div className={`step-${step} main-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
-       style={baseStye} >
-      
-      <img src={mainBackground} className='main-background' />
+    <div className={`step-${step} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
+      style={baseStye} >      
       <img src={laptopBGSvg} className='laptop' />
       <div className="steam lottie"></div>
       <div className="music lottie"></div>
@@ -384,19 +377,26 @@ const App = ({ ws }) => {
             <img src={stickerPhpColor} className='sticker-color' />
           </div>
 
-          
-          <img src={stickerNode} className='sticker sticker-node' />
-          <img src={stickerScala} className='sticker sticker-scala' />
-          <img src={stickerClojure} className='sticker sticker-clojure' />
-          <img src={stickerRuby} className='sticker sticker-ruby' />
-          
-          {/* Color */}
-          <img src={stickerNodeColor} className='sticker sticker-node sticker-color' />
-          <img src={stickerScalaColor} className='sticker sticker-scala sticker-color' />
-          <img src={stickerClojureColor} className='sticker sticker-clojure sticker-color' />
-          <div className='sticker sticker-ruby lottie' ></div>
+          <div className='sticker sticker-node'>
+            <img src={stickerNode} className='sticker-resting' />
+            <img src={stickerNodeColor} className='sticker-color' />
+          </div>
 
+          <div className='sticker sticker-scala'>
+            <img src={stickerScala} className='sticker-resting' />
+            <img src={stickerScalaColor} className='sticker-color' />
+          </div>
+
+          <div className='sticker sticker-clojure'>
+            <img src={stickerClojure} className='sticker-resting' />
+            <img src={stickerClojureColor} className='sticker-color' />
+          </div>
           
+          <div className='sticker sticker-ruby'>
+            <img src={stickerRuby} className='sticker-resting' />
+            <div className='lottie sticker-color' ></div>
+          </div>
+
           <div id="talk-sequence">
             <div className="talk-bubble char-1" data-step="1">
               What is Heroku?
@@ -449,7 +449,7 @@ const App = ({ ws }) => {
         <p id="QR-code-url">{attendeeAppUrl}</p>
     
         </>
-     
+    
       )}
 
       {showHelp && (
