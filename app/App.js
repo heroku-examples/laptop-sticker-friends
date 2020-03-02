@@ -109,6 +109,8 @@ const App = ({ ws }) => {
   const [region] = useState(config.region)
   const [attendeeAppUrl, setAttendeeAppUrl] = useState(null)
   const [containerSize, setContainerSize] = useState(null)
+  const [fitWidth, setFitWidth] = useState(false)
+  // const [baseFontSize, setBaseFontSize] = useState('1vh')
   // const [animations, setAnimations] = useState(null)
 
   // Hot keys to change steps and modes
@@ -222,15 +224,20 @@ const App = ({ ws }) => {
 
 
   const resizeHandler = (ratio) => {
-    let fitWidth = ratio*window.innerHeight > window.innerWidth
+    let _fitWidth = ratio*window.innerHeight > window.innerWidth
     let size = {}
-    if (fitWidth) {
+    if (_fitWidth) {
+      size.widthPx = window.innerWidth
+      size.heightPx = window.innerWidth/ratio
       size.width = '100vw'
-      size.height = window.innerWidth/ratio/window.innerHeight*100 + 'vh'
+      size.height = size.heightPx/window.innerHeight*100 + 'vh'
     } else {
+      size.heightPx = window.innerHeight
+      size.widthPx = window.innerHeight*ratio
       size.height = '100vh'
-      size.width =  window.innerHeight*ratio/window.innerWidth*100 + 'vw'
+      size.width =  size.widthPx/window.innerWidth*100 + 'vw'
     }
+    setFitWidth(_fitWidth)
     setContainerSize(size)
   }
 
@@ -241,7 +248,7 @@ const App = ({ ws }) => {
       const ratio = img.width/img.height
       resizeHandler(ratio)
       handler = _.debounce(resizeHandler.bind(null, ratio), 500)
-      window.addEventListener('resize', handler)
+     // window.addEventListener('resize', handler)
     }
     //Using the laptop background imagage as the base size ratio of the container
     img.src = laptopBGSvg
@@ -311,12 +318,16 @@ const App = ({ ws }) => {
     setShowZoomedDiagram((prev) => !prev)
   }
 
+  let baseStye = containerSize ? {
+    width: containerSize.widthPx + 'px',
+    height: containerSize.heightPx + 'px',
+    //The main container's font-size is set to 1% of the container width
+    fontSize: containerSize.widthPx * 0.01 + 'px'
+  } : {}
+
   return (
-    <div className={`step-${step} main-container`} 
-       style={containerSize ? {
-         width: containerSize.width,
-         height: containerSize.height 
-       } : {}} >
+    <div className={`step-${step} main-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
+       style={baseStye} >
       
       <img src={mainBackground} className='main-background' />
       <img src={laptopBGSvg} className='laptop' />
@@ -353,24 +364,37 @@ const App = ({ ws }) => {
 
       {characters && (
         <div id="characters">
-          <img src={stickerGo} className='sticker sticker-go' />
-          <img src={stickerJava} className='sticker sticker-java' />
-          <img src={stickerPhp} className='sticker sticker-php' />
+          <div className='sticker sticker-python'>
+            <img src={stickerPython} className='sticker-resting' />
+            <img src={stickerPythonColor} className='sticker-color' />
+          </div>
+
+          <div className='sticker sticker-go'>
+            <img src={stickerGo} className='sticker-resting' />
+            <img src={stickerGoColor} className='sticker-color' />
+          </div>
+
+          <div className='sticker sticker-java'>
+            <img src={stickerJava} className='sticker-resting' />
+            <img src={stickerJavaColor} className='sticker-color' />
+          </div>
+
+          <div className='sticker sticker-php'>
+            <img src={stickerPhp} className='sticker-resting' />
+            <img src={stickerPhpColor} className='sticker-color' />
+          </div>
+
+          
           <img src={stickerNode} className='sticker sticker-node' />
           <img src={stickerScala} className='sticker sticker-scala' />
           <img src={stickerClojure} className='sticker sticker-clojure' />
           <img src={stickerRuby} className='sticker sticker-ruby' />
-          <img src={stickerPython} className='sticker sticker-python' />
           
           {/* Color */}
-          <img src={stickerGoColor} className='sticker sticker-go sticker-color' />
-          <img src={stickerJavaColor} className='sticker sticker-java sticker-color' />
-          <img src={stickerPhpColor} className='sticker sticker-php sticker-color' />
           <img src={stickerNodeColor} className='sticker sticker-node sticker-color' />
           <img src={stickerScalaColor} className='sticker sticker-scala sticker-color' />
           <img src={stickerClojureColor} className='sticker sticker-clojure sticker-color' />
           <div className='sticker sticker-ruby lottie' ></div>
-          <img src={stickerPythonColor} className='sticker sticker-python sticker-color' />
 
           
           <div id="talk-sequence">

@@ -1,3 +1,16 @@
+/*
+  PLEASE READ
+  In this app, the font-size of the main container is set to 1% of the container width.
+  The container width isn't always the window width.
+  Therefore you can't rely on vw or vh.
+  1em === 1% of the width of the main container.
+  Also border doesn't take % so you can use em instead.
+*/
+
+:root {
+  --triangle-border-width: 0.7em;
+}
+
 html,body {
   overflow: hidden;
 }
@@ -145,7 +158,13 @@ body {
 
 .sticker {
   position: absolute;
+}
+
+.sticker img {
+  position: absolute;
   transition: opacity 300ms ease-in 300ms;
+  top: 0;
+  left: 0;
 }
 
 .sticker-color {
@@ -159,11 +178,13 @@ body {
   width: 5.7%;
 }
 
-.step-1 .sticker-go {
+.step-2 .sticker-go .sticker-resting,
+.step-7 .sticker-go .sticker-resting {
   opacity: 0;
 }
 
-.step-1 .sticker-go.sticker-color {
+.step-2 .sticker-go .sticker-color,
+.step-7 .sticker-go .sticker-color {
   opacity: 1;
 }
 
@@ -173,11 +194,11 @@ body {
   width: 9.5%;
 }
 
-.step-2 .sticker-java {
+.step-4 .sticker-java .sticker-resting {
   opacity: 0;
 }
 
-.step-2 .sticker-java.sticker-color {
+.step-4 .sticker-java .sticker-color {
   opacity: 1;
 }
 
@@ -187,11 +208,13 @@ body {
   width: 11.7%;
 }
 
-.step-3 .sticker-php {
+.step-5 .sticker-php .sticker-resting,
+.step-6 .sticker-php .sticker-resting {
   opacity: 0;
 }
 
-.step-3 .sticker-php.sticker-color {
+.step-5 .sticker-php .sticker-color,
+.step-6 .sticker-php .sticker-resting {
   opacity: 1;
 }
 
@@ -265,33 +288,13 @@ body {
   width: 5.8%;
 }
 
-.step-8 .sticker-python {
+.step-1 .sticker-python .sticker-resting {
   opacity: 0;
 }
 
-.step-8 .sticker-python.sticker-color {
+.step-1 .sticker-python .sticker-color {
   opacity: 1;
 }
-
-
-/* #characters {
-  width: 70%;
-  height: 50%;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-42%);
-  z-index: 5;
-}
-
-#characters-svg > svg {
-  width: 175%;
-  height: 95%;
-  position: absolute;
-  left: 0;
-  bottom: 10%;
-  transform: translateX(-22%);
-} */
 
 
 /* title and architecture diagram */
@@ -423,32 +426,39 @@ body {
 /* dialogue */
 
 .talk-bubble {
-  width: 20vw;
-  padding: 20px 25px;
+  padding: 1em 1em;
   position: absolute;
-  background-color: #032041;
-  border: 1px solid #c4c4c4;
-  font-size: 1.3vw;
-  color: white;
+  background: rgba(255,255,255,0.9);
+  border: 0.1em solid #E1E1F1;
+  font-size: 1.3em;
+  color: #5D32A4;
+  border-radius: 0.7em;
+  color: #5D32A4;
   opacity: 1;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, font-size 0.2s ease-in-out;
 }
 
 .talk-bubble.char-1 {
-  left: 15%;
-  bottom: 130%;
+  left: 46%;
+  top: 38%;
 }
+
 .talk-bubble.char-2 {
-  left: 28%;
-  bottom: 110%;
+  left: 46.3%;
+  top: 54%;
+  width: 28%;
 }
+
 .talk-bubble.char-3 {
-  right: 42%;
-  bottom: 120%;
+  left: 54%;
+  top: 53.5%;
+  width: 21%;
 }
+
 .talk-bubble.char-4 {
-  right: 35%;
-  bottom: 110%;
+  left: 42%;
+  top: 66%;
+  width: 31%;
 }
 
 .talk-bubble:before,
@@ -457,37 +467,65 @@ body {
   position: absolute;
 }
 
-/* right side of the fire */
-.talk-bubble.char-3:before,
-.talk-bubble.char-4:before {
-  right: 49px;
-  bottom: -84px;
-  border-top: 83px solid #c4c4c4;
-  border-left: 52px solid transparent;
-}
-.talk-bubble.char-3:after,
-.talk-bubble.char-4:after {
-  right: 50px;
-  bottom: -80px;
-  border-top: 80px solid #032041;
-  border-left: 50px solid transparent;
+ .talk-bubble.char-1:before,
+ .talk-bubble.char-1:after {
+  left: -12%;
+  top: 22%;
+  border-top: var(--triangle-border-width) solid transparent;
+  border-bottom: var(--triangle-border-width) solid transparent;
+  /* border-right: 1em solid #9999CE; */
+  border-right: 1em solid #E1E1F1
 }
 
-/* left side of the fire */
-.talk-bubble.char-1:before,
-.talk-bubble.char-2:before {
-  left: 49px;
-  bottom: -84px;
-  border-top: 83px solid #c4c4c4;
-  border-right: 52px solid transparent;
-}
-.talk-bubble.char-1:after,
+.talk-bubble.char-1:after {
+  margin-left: 0.15em;
+  border-right-color:#fff;
+} 
+
+.talk-bubble.char-2:before,
 .talk-bubble.char-2:after {
-  left: 50px;
-  bottom: -80px;
-  border-top: 80px solid #032041;
-  border-right: 50px solid transparent;
+  left: -5%;
+  top: 15%;
+  border-top: var(--triangle-border-width) solid transparent;
+  border-bottom: var(--triangle-border-width) solid transparent;
+  /* border-right: 1em solid #9999CE; */
+  border-right: 1em solid #E1E1F1
 }
+
+.talk-bubble.char-2:after {
+  margin-left: 0.15em;
+  border-right-color:#FFF;
+}
+
+.talk-bubble.char-3:before,
+.talk-bubble.char-3:after {
+  left: 29%;
+  top: -17%;
+  border-left: var(--triangle-border-width) solid transparent;
+  /* border-right: 1em solid #9999CE; */
+  border-right: var(--triangle-border-width) solid transparent;
+  border-bottom: 1em solid #E1E1F1;
+}
+
+.talk-bubble.char-3:after {
+  margin-top: 0.15em;
+  border-bottom-color:#FFF;
+}
+
+.talk-bubble.char-4:before,
+.talk-bubble.char-4:after {
+  left: -4.5%;
+  top: 22%;
+  border-top: var(--triangle-border-width) solid transparent;
+  border-bottom: var(--triangle-border-width) solid transparent;
+  /* border-right: 1em solid #9999CE; */
+  border-right: 1em solid #E1E1F1
+}
+
+.talk-bubble.char-4:after {
+  margin-left: 0.15em;
+  border-right-color:#fff;
+} 
 
 /* Logos */
 #logos {
@@ -519,7 +557,7 @@ body {
   top: 3%;
   left: 14%;
   color: #795a9d;
-  font-size: 2rem;
+  font-size: 3em;
 }
 
 #QR-code svg {
