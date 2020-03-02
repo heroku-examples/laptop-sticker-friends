@@ -243,7 +243,7 @@ const App = ({ ws }) => {
       const ratio = img.width/img.height
       resizeHandler(ratio)
       handler = _.debounce(resizeHandler.bind(null, ratio), 500)
-     // window.addEventListener('resize', handler)
+      window.addEventListener('resize', handler)
     }
     //Using the laptop background imagage as the base size ratio of the container
     img.src = laptopBGSvg
