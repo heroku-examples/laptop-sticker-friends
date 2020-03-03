@@ -83,16 +83,21 @@ body.background-3 {
 } */
 
 body {
-  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%), 
-              linear-gradient(132deg, rgba(74,173,203,1) 0%, rgba(74,173,203,1) 20%, rgba(135,99,178,1) 50%, rgba(135,99,178,1) 80%) 0 50vh;
+  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
   background-repeat: no-repeat;
-  background-size: 100vw 64.5vh;
 }
 
 *,
 *:after,
 *:before {
   box-sizing: border-box;
+}
+
+.background-gradient {
+  width: 100vw;
+  height: 50vh;
+  background: linear-gradient(132deg, rgba(74,173,203,1) 0%, rgba(74,173,203,1) 20%, rgba(135,99,178,1) 50%, rgba(135,99,178,1) 80%);  
+  position: absolute;
 }
 
 .laptop-container {
@@ -269,21 +274,17 @@ body {
 .sticker-ruby .lottie {
   position: absolute;
   width: 200%;
-  /* 
-    % doesn't work for
-    Can't rely on the vw or vh so need to use em.
-    Please look at the very top of this file for the detail. 
-  */
   top: -4em;
   left: -3.6em;
   opacity: 0;
+  transition: opacity 300ms ease-in 300ms;
 }
 
-.step-7 .sticker-ruby .sticker-resting {
-  opacity: 0;
+.step-1 .sticker-ruby .sticker-resting {
+  /* opacity: 0; */
 }
 
-.step-7 .sticker-ruby .sticker-color {
+.step-1 .sticker-ruby .sticker-color {
   opacity: 1;
 }
 
@@ -475,7 +476,7 @@ body {
 
  .talk-bubble.char-1:before,
  .talk-bubble.char-1:after {
-  left: -12%;
+  left: -11%;
   top: 22%;
   border-top: var(--triangle-border-width) solid transparent;
   border-bottom: var(--triangle-border-width) solid transparent;
@@ -484,7 +485,7 @@ body {
 }
 
 .talk-bubble.char-1:after {
-  margin-left: 0.15em;
+  margin-left: 0.2em;
   border-right-color:#fff;
 } 
 
@@ -499,7 +500,7 @@ body {
 }
 
 .talk-bubble.char-2:after {
-  margin-left: 0.15em;
+  margin-left: 0.2em;
   border-right-color:#FFF;
 }
 
@@ -514,7 +515,7 @@ body {
 }
 
 .talk-bubble.char-3:after {
-  margin-top: 0.15em;
+  margin-top: 0.2em;
   border-bottom-color:#FFF;
 }
 
@@ -529,7 +530,7 @@ body {
 }
 
 .talk-bubble.char-4:after {
-  margin-left: 0.15em;
+  margin-left: 0.2em;
   border-right-color:#fff;
 } 
 
@@ -551,7 +552,7 @@ body {
 /* URL and QR code */
 #QR-code {
   position: absolute;
-  top: 2%;
+  top: 5%;
   left: 2%;
   width: 10%;
   padding: 1%;
@@ -560,10 +561,11 @@ body {
 
 #QR-code-url {
   position: absolute;
-  top: 3%;
+  top: 4%;
   left: 14%;
   color: #795a9d;
   font-size: 3em;
+  transition: font-size 300ms ease-in;
 }
 
 #QR-code svg {

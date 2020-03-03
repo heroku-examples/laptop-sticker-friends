@@ -7,6 +7,7 @@ import api from './api'
 import useDisappearingState from './useDisappearingState'
 import config from './config'
 import constants from '../src/constants'
+import CommandHelp from './CommandHelp'
 
 import laptopBGSvg from './images/laptop.svg'
 
@@ -50,7 +51,9 @@ const STEP_COUNT = 10
 const INITIAL_AUTO_STEP = 1
 const STEP_COUNT_AUTO = 9
 const INITIAL_AUTO = false
-
+const LAPTOP_DESK_FROM_CENTER = 0.145 
+// The distance from the center of the laptop image to the part desk starts is 14.5% of the image height.
+// This is used to calculate where the bottom grandient should start
 const BG_COUNT = 3
 
 const Flag = ({ region }) => {
@@ -102,8 +105,6 @@ const App = ({ ws }) => {
   const [attendeeAppUrl, setAttendeeAppUrl] = useState(null)
   const [containerSize, setContainerSize] = useState(null)
   const [fitWidth, setFitWidth] = useState(false)
-  // const [baseFontSize, setBaseFontSize] = useState('1vh')
-  // const [animations, setAnimations] = useState(null)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -300,12 +301,19 @@ const App = ({ ws }) => {
     }
   }, [characters])
 
+  // let rubyTimeout
   useEffect(() => {
     if (!animations) return
-    animations.ruby.stop()
 
-    if (step === 7) {
+    if (step === 1) {
+      // if (rubyTimeout) {
+      //   clearTimeout(rubyTimeout)
+      // }
       animations.ruby.play()
+    } else {
+      // rubyTimeout = setTimeout(() => {
+      //   animations.ruby.pause()
+      // }, 1000)
     }
   }, [step])
 
@@ -320,7 +328,12 @@ const App = ({ ws }) => {
     fontSize: containerSize.widthPx * 0.01 + 'px'
   } : {}
 
-  return (
+  let bottomGradientStyle = {
+    top: containerSize? (window.innerHeight/2 + containerSize.heightPx * 0.145) /window.innerHeight *100 + 'vh' : 'auto'
+  }
+
+  return (<>
+    <div className='background-gradient' style={bottomGradientStyle}></div>
     <div className={`step-${step} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
       style={baseStye} >      
       <img src={laptopBGSvg} className='laptop' />
@@ -453,54 +466,7 @@ const App = ({ ws }) => {
       )}
 
       {showHelp && (
-        <div id="command-help">
-          <div>
-            <h2>Keyboard Shortcuts</h2>
-            <table className="command-list">
-              <tbody>
-                <tr>
-                  <td>⌥ = option</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>a</span></td>
-                  <td>Start auto-advancing of speech bubbles (while you’re not actively giving the demo)</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>a</span></td>
-                  <td>Stop auto-advancing of speech bubbles (so you can start a demo)</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>→</span></td>
-                  <td>Advance speech bubbles sequence (last step is architecture diagram)</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>←</span></td>
-                  <td>Go back in speech bubbles sequence</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>d</span></td>
-                  <td>Jump to the architecture diagram</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>r</span></td>
-                  <td>Reset speech bubbles / architecture diagram back to beginning state</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>q</span></td>
-                  <td>Hide QR code and URL being shown in sky for selfie app</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>c</span></td>
-                  <td>Clear the selfie characters (in case someone shares something rude)</td>
-                </tr>
-                <tr>
-                  <td><span>⌥</span> + <span>h</span></td>
-                  <td>Toggle this view</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <CommandHelp />
       )}
 
       <a
@@ -516,7 +482,7 @@ const App = ({ ws }) => {
         className="hidden-link github"
       />
     </div>
-  )
+  </>)
 }
 
 export default App
