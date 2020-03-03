@@ -214,13 +214,15 @@ body {
 
 .step-5 .sticker-php .sticker-resting,
 .step-6 .sticker-php .sticker-resting,
-.step-9 .sticker-php .sticker-resting  {
+.step-9:not(.auto) .sticker-php .sticker-resting,
+.auto.step-8 .sticker-php .sticker-resting {
   opacity: 0;
 }
 
 .step-5 .sticker-php .sticker-color,
 .step-6 .sticker-php .sticker-color,
-.step-9 .sticker-php .sticker-color {
+.step-9:not(.auto) .sticker-php .sticker-color,
+.auto.step-8 .sticker-php .sticker-color {
   opacity: 1;
 }
 
@@ -353,7 +355,7 @@ body {
   left: 14%;
   top: 10%;
   color: white;
-  font-size: 4vw;
+  font-size: 4em;
   text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
   z-index: 2;
 }

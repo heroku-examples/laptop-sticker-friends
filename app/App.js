@@ -335,7 +335,7 @@ const App = ({ ws }) => {
 
   return (<>
     <div className='background-gradient' style={bottomGradientStyle}></div>
-    <div className={`step-${step} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
+    <div className={`step-${step} ${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
       style={baseStye} >      
       <img src={laptopBGSvg} className='laptop' />
       <div className="steam lottie"></div>
