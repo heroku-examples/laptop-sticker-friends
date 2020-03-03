@@ -166,7 +166,7 @@ body {
 
 .sticker img {
   position: absolute;
-  transition: opacity 300ms ease-in 300ms;
+  transition: opacity 300ms ease-in 100ms;
   top: 0;
   left: 0;
 }
@@ -213,12 +213,14 @@ body {
 }
 
 .step-5 .sticker-php .sticker-resting,
-.step-6 .sticker-php .sticker-resting {
+.step-6 .sticker-php .sticker-resting,
+.step-9 .sticker-php .sticker-resting  {
   opacity: 0;
 }
 
 .step-5 .sticker-php .sticker-color,
-.step-6 .sticker-php .sticker-resting {
+.step-6 .sticker-php .sticker-color,
+.step-9 .sticker-php .sticker-color {
   opacity: 1;
 }
 
@@ -228,6 +230,19 @@ body {
   width: 4.5%;
 }
 
+@keyframes bounce {
+  0%   {top: 41%;}
+  25%  {top: 35%;}
+  50%  {top: 41%;}
+  75%  {top: 39%;}
+  100% {top: 41%;}
+}
+
+.step-4 .sticker-node {
+  animation: bounce 500ms linear;
+}
+
+
 .step-4 .sticker-node .sticker-resting {
   opacity: 0;
 }
@@ -236,12 +251,24 @@ body {
   opacity: 1;
 }
 
-
 .sticker-scala {
   left: 34%;
   top: 47%;
   width: 3.2%;
 }
+
+@keyframes wiggle {
+  0%   {left: 34%;}
+  25%  {left: 34.5%;}
+  50%  {left: 33.5%;}
+  75%  {left: 34.5%;}
+  100% {left: 34%;}
+}
+
+.step-5 .sticker-scala {
+  animation: wiggle 500ms linear;
+}
+
 
 .step-5 .sticker-scala .sticker-resting {
   opacity: 0;
@@ -254,8 +281,23 @@ body {
 .sticker-clojure {
   left: 28.4%;
   top: 54%;
-  width: 4.6%;
+  /* They are in em because rotation doesn't work well without a specific width and height and can't rely on % or vh/vw */
+  width: 4.6em;
+  height: 4.6em;
 }
+
+@keyframes spin {
+  /* 0%   {transform: rotate(360deg);} */
+  /* 25%  {transform: rotate(deg)} */
+  50%  {transform: rotate(360deg);}
+  /* 75%  {left: 34.5%;} */
+  100% {transform: rotate(720deg);}
+}
+
+.step-6 .sticker-clojure {
+  animation: spin 500ms linear;
+}
+
 
 .step-6 .sticker-clojure .sticker-resting {
   opacity: 0;
@@ -277,11 +319,11 @@ body {
   top: -4em;
   left: -3.6em;
   opacity: 0;
-  transition: opacity 300ms ease-in 300ms;
+  transition: opacity 300ms ease-in 100ms;
 }
 
 .step-1 .sticker-ruby .sticker-resting {
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 .step-1 .sticker-ruby .sticker-color {
@@ -300,6 +342,7 @@ body {
 
 .step-1 .sticker-python .sticker-color {
   opacity: 1;
+  transform: scale(1.05) rotate(-5deg);
 }
 
 
@@ -442,7 +485,7 @@ body {
   border-radius: 0.7em;
   color: #5D32A4;
   opacity: 1;
-  transition: opacity 0.2s ease-in-out, font-size 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out 300ms, font-size 0.2s ease-in-out;
 }
 
 .talk-bubble.char-1 {
@@ -598,7 +641,7 @@ body {
   z-index: 4;
   position: absolute;
   border-radius: 5px;
-  border: solid 1px rgba(225,225,241,1);
+  border: solid 0.11em rgb(216,207,227, 1);
 }
 
 #submissions img:nth-child(1) {

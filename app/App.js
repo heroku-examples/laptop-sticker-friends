@@ -10,6 +10,7 @@ import constants from '../src/constants'
 import CommandHelp from './CommandHelp'
 
 import laptopBGSvg from './images/laptop.svg'
+// import testImage from './images/test-image.png'
 
 import useAnimation from './useAnimation';
 import stickerGo from './images/stickers/go.svg';
@@ -344,6 +345,7 @@ const App = ({ ws }) => {
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
         ))}
+        {/* <img src={testImage} /> */}
       </div>
       {auto && (
         <h1 className="auto-title" data-step="3" data-step-action="hide">
@@ -390,10 +392,7 @@ const App = ({ ws }) => {
             <img src={stickerPhpColor} className='sticker-color' />
           </div>
 
-          <div className='sticker sticker-node'>
-            <img src={stickerNode} className='sticker-resting' />
-            <img src={stickerNodeColor} className='sticker-color' />
-          </div>
+          <div className='sticker sticker-node'><img src={stickerNode} className='sticker-resting' /><img src={stickerNodeColor} className='sticker-color' /></div>
 
           <div className='sticker sticker-scala'>
             <img src={stickerScala} className='sticker-resting' />
