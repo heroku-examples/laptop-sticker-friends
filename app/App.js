@@ -52,6 +52,8 @@ const STEP_COUNT = 10
 const INITIAL_AUTO_STEP = 1
 const STEP_COUNT_AUTO = 9
 const INITIAL_AUTO = false
+const STICKER_ANIMATION_TIME_BETWEEN = 7000
+const STICKER_ANIMATION_LIST = _.shuffle(['node', 'scala', 'clojure', 'ruby'])
 const LAPTOP_DESK_FROM_CENTER = 0.145 
 // The distance from the center of the laptop image to the part desk starts is 14.5% of the image height.
 // This is used to calculate where the bottom grandient should start
@@ -106,6 +108,7 @@ const App = ({ ws }) => {
   const [attendeeAppUrl, setAttendeeAppUrl] = useState(null)
   const [containerSize, setContainerSize] = useState(null)
   const [fitWidth, setFitWidth] = useState(false)
+  const [stickerAnimation, setStickerAnimation] = useState(null)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -232,9 +235,6 @@ const App = ({ ws }) => {
       size.width =  size.widthPx/window.innerWidth*100 + 'vw'
     }
     setFitWidth(_fitWidth)
-    // if (_fitWidth) {
-    //   document.body.classList.add('fit-width')
-    // }
     setContainerSize(size)
   }
 
@@ -302,21 +302,28 @@ const App = ({ ws }) => {
     }
   }, [characters])
 
-  // let rubyTimeout
-  useEffect(() => {
-    if (!animations) return
+  //Setting sticker animations
+  useInterval(
+    () => {
+      const currentIndex = STICKER_ANIMATION_LIST.indexOf(stickerAnimation)
+      const nextIndex = currentIndex + 1 >= STICKER_ANIMATION_LIST.length? 0 : currentIndex + 1
+      const nextAnimation = STICKER_ANIMATION_LIST[nextIndex]
+      setStickerAnimation(nextAnimation)
 
-    if (step === 1) {
-      // if (rubyTimeout) {
-      //   clearTimeout(rubyTimeout)
-      // }
-      animations.ruby.play()
-    } else {
-      // rubyTimeout = setTimeout(() => {
-      //   animations.ruby.pause()
-      // }, 1000)
-    }
-  }, [step])
+      if (animations && nextAnimation === 'ruby') {
+        animations.ruby.play()
+      } else if (animations) {
+        animations.ruby.pause()
+      }
+    },
+    stickerAnimation? STICKER_ANIMATION_TIME_BETWEEN : null
+  )
+
+  useEffect(() => {
+    setTimeout(() => {
+      setStickerAnimation(STICKER_ANIMATION_LIST[0])
+    }, STICKER_ANIMATION_TIME_BETWEEN)
+  }, [])
 
   const toggleZoom = () => {
     setShowZoomedDiagram((prev) => !prev)
@@ -330,7 +337,7 @@ const App = ({ ws }) => {
   } : {}
 
   let bottomGradientStyle = {
-    top: containerSize? (window.innerHeight/2 + containerSize.heightPx * 0.145) /window.innerHeight *100 + 'vh' : 'auto'
+    top: containerSize? (window.innerHeight/2 + containerSize.heightPx * LAPTOP_DESK_FROM_CENTER) /window.innerHeight *100 + 'vh' : 'auto'
   }
 
   return (<>
@@ -392,23 +399,6 @@ const App = ({ ws }) => {
             <img src={stickerPhpColor} className='sticker-color' />
           </div>
 
-          <div className='sticker sticker-node'><img src={stickerNode} className='sticker-resting' /><img src={stickerNodeColor} className='sticker-color' /></div>
-
-          <div className='sticker sticker-scala'>
-            <img src={stickerScala} className='sticker-resting' />
-            <img src={stickerScalaColor} className='sticker-color' />
-          </div>
-
-          <div className='sticker sticker-clojure'>
-            <img src={stickerClojure} className='sticker-resting' />
-            <img src={stickerClojureColor} className='sticker-color' />
-          </div>
-          
-          <div className='sticker sticker-ruby'>
-            <img src={stickerRuby} className='sticker-resting' />
-            <div className='lottie sticker-color' ></div>
-          </div>
-
           <div id="talk-sequence">
             <div className="talk-bubble char-1" data-step="1">
               What is Heroku?
@@ -446,22 +436,42 @@ const App = ({ ws }) => {
         </div>
       )}
 
+      <div id="animated-stickers">
+        <div className={`sticker sticker-node ${stickerAnimation === 'node'? 'active' : ''}`}>
+          <img src={stickerNode} className='sticker-resting' />
+          <img src={stickerNodeColor} className='sticker-color' />
+        </div>
+
+        <div className={`sticker sticker-scala ${stickerAnimation === 'scala'? 'active' : ''}`}>
+          <img src={stickerScala} className='sticker-resting' />
+          <img src={stickerScalaColor} className='sticker-color' />
+        </div>
+
+        <div className={`sticker sticker-clojure ${stickerAnimation === 'clojure'? 'active' : ''}`}>
+          <img src={stickerClojure} className='sticker-resting' />
+          <img src={stickerClojureColor} className='sticker-color' />
+        </div>
+        
+        <div className={`sticker sticker-ruby ${stickerAnimation === 'ruby'? 'active' : ''}`}>
+          <img src={stickerRuby} className='sticker-resting' />
+          <div className='lottie sticker-color' ></div>
+        </div>
+      </div>
+
       <img src={logos} id="logos" data-step="3" />
 
       {showQRCode && attendeeAppUrl && step!==3 && (
         <>
-        <div id="QR-code">
-          <QRCode
-            renderAs="svg"
-            value={attendeeAppUrl}
-            width="100%"
-            height="100%"
-          />
-        </div>
-        <p id="QR-code-url">{attendeeAppUrl}</p>
-    
+          <div id="QR-code">
+            <QRCode
+              renderAs="svg"
+              value={attendeeAppUrl}
+              width="100%"
+              height="100%"
+            />
+          </div>
+          <p id="QR-code-url">{attendeeAppUrl}</p>
         </>
-    
       )}
 
       {showHelp && (

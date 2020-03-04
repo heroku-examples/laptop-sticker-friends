@@ -171,6 +171,14 @@ body {
   left: 0;
 }
 
+#animated-stickers {
+  --animation-delay: 4000ms;
+}
+
+#animated-stickers .sticker.active img {
+  transition: opacity 300ms ease-in var(--animation-delay);
+}
+
 .sticker-color {
   opacity: 0;
   z-index: 5;
@@ -190,6 +198,7 @@ body {
 .step-2 .sticker-go .sticker-color,
 .step-7 .sticker-go .sticker-color {
   opacity: 1;
+  transform: scale(1.05) rotate(5deg);
 }
 
 .sticker-java {
@@ -204,6 +213,7 @@ body {
 
 .step-4 .sticker-java .sticker-color {
   opacity: 1;
+  transform: scale(1.05) rotate(5deg);
 }
 
 .sticker-php {
@@ -224,6 +234,7 @@ body {
 .step-9:not(.auto) .sticker-php .sticker-color,
 .auto.step-8 .sticker-php .sticker-color {
   opacity: 1;
+  transform: scale(1.05) rotate(-5deg);
 }
 
 .sticker-node {
@@ -240,16 +251,16 @@ body {
   100% {top: 41%;}
 }
 
-.step-4 .sticker-node {
-  animation: bounce 500ms linear;
+.sticker-node.active {
+  animation: bounce 500ms linear var(--animation-delay);
 }
 
 
-.step-4 .sticker-node .sticker-resting {
+.sticker-node.active .sticker-resting {
   opacity: 0;
 }
 
-.step-4 .sticker-node .sticker-color {
+.sticker-node.active .sticker-color {
   opacity: 1;
 }
 
@@ -267,16 +278,16 @@ body {
   100% {left: 34%;}
 }
 
-.step-5 .sticker-scala {
-  animation: wiggle 500ms linear;
+.sticker-scala.active {
+  animation: wiggle 500ms linear var(--animation-delay);
 }
 
 
-.step-5 .sticker-scala .sticker-resting {
+.sticker-scala.active .sticker-resting {
   opacity: 0;
 }
 
-.step-5 .sticker-scala .sticker-color {
+.sticker-scala.active .sticker-color {
   opacity: 1;
 }
 
@@ -289,23 +300,19 @@ body {
 }
 
 @keyframes spin {
-  /* 0%   {transform: rotate(360deg);} */
-  /* 25%  {transform: rotate(deg)} */
   50%  {transform: rotate(360deg);}
-  /* 75%  {left: 34.5%;} */
   100% {transform: rotate(720deg);}
 }
 
-.step-6 .sticker-clojure {
-  animation: spin 500ms linear;
+.sticker-clojure.active {
+  animation: spin 500ms linear var(--animation-delay);
 }
 
-
-.step-6 .sticker-clojure .sticker-resting {
+.sticker-clojure.active .sticker-resting {
   opacity: 0;
 }
 
-.step-6 .sticker-clojure .sticker-color {
+.sticker-clojure.active .sticker-color {
   opacity: 1;
 }
 
@@ -321,14 +328,14 @@ body {
   top: -4em;
   left: -3.6em;
   opacity: 0;
-  transition: opacity 300ms ease-in 100ms;
+  transition: opacity 300ms ease-in;
 }
 
-.step-1 .sticker-ruby .sticker-resting {
+.sticker-ruby.active .sticker-resting {
   opacity: 0;
 }
 
-.step-1 .sticker-ruby .sticker-color {
+.sticker-ruby.active .sticker-color {
   opacity: 1;
 }
 
