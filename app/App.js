@@ -9,7 +9,9 @@ import config from './config'
 import constants from '../src/constants'
 import CommandHelp from './CommandHelp'
 
-import laptopBGSvg from './images/laptop.svg'
+import laptopBackSvg from './images/laptop-back.svg'
+import laptopFrontSvg from './images/laptop-front.svg'
+
 // import testImage from './images/test-image.png'
 
 import useAnimation from './useAnimation';
@@ -32,10 +34,9 @@ import stickerScalaColor from './images/stickers/color/scala.svg';
 
 
 import logos from './images/logos.svg'
-import architectureDiagram from './images/architecture-diagram.svg'
+import architectureDiagram from './images/architecture-diagram.png'
 import architectureDiagramZoom from './images/architecture-diagram-zoom.jpg'
 
-import flagpole from './images/flagpole.svg'
 import flagHeroku from './images/flag-heroku.svg'
 import flagOregon from './images/flag-oregon.svg'
 import flagVirginia from './images/flag-virginia.svg'
@@ -77,7 +78,6 @@ const Flag = ({ region }) => {
 
   return (
     <>
-      <img src={flagpole} id="flagpole" />
       {flags.map((flag) => (
         <img className="flag" key={flag} src={flag} />
       ))}
@@ -248,7 +248,7 @@ const App = ({ ws }) => {
       window.addEventListener('resize', handler)
     }
     //Using the laptop background imagage as the base size ratio of the container
-    img.src = laptopBGSvg
+    img.src = laptopBackSvg
     return () => {
       window.removeEventListener('resize', handler)
     }
@@ -340,11 +340,14 @@ const App = ({ ws }) => {
     top: containerSize? (window.innerHeight/2 + containerSize.heightPx * LAPTOP_DESK_FROM_CENTER) /window.innerHeight *100 + 'vh' : 'auto'
   }
 
-  return (<>
-    <div className='background-gradient' style={bottomGradientStyle}></div>
-    <div className={`step-${step} ${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
+  return (<div className={`step-${step}`}>
+    <div className='background-gradient-top'></div>
+    <div className='background-gradient-bottom' style={bottomGradientStyle}></div>
+    <div className={`${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
       style={baseStye} >      
-      <img src={laptopBGSvg} className='laptop' />
+      <img src={laptopBackSvg} className='laptop laptop-back' />
+      <img src={laptopFrontSvg} className='laptop laptop-front' />
+
       <div className="steam lottie"></div>
       <div className="music lottie"></div>
 
@@ -364,15 +367,13 @@ const App = ({ ws }) => {
           <div>
             <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
           </div>
-        ):(
-          <div>
-            <div className="architecture-diagram-wrapper">
-              <div className="diagram-clickable-area" onClick={toggleZoom}></div>
-              <img src={architectureDiagram} />
-            </div>
-          </div>
+        ):(<>
+          <div className="diagram-clickable-area" onClick={toggleZoom}></div>
+          <img src={architectureDiagram} />
+          </>
         )}
       </div>
+
       <div id="regional-flags">
         <Flag region={region} />
       </div>
@@ -458,7 +459,8 @@ const App = ({ ws }) => {
         </div>
       </div>
 
-      <img src={logos} id="logos" data-step="3" />
+      <div data-step="3" className='brand-list-background'></div>
+      <img src={logos} data-step="3" className="brand-list"/>
 
       {showQRCode && attendeeAppUrl && step!==3 && (
         <>
@@ -491,7 +493,7 @@ const App = ({ ws }) => {
         className="hidden-link github"
       />
     </div>
-  </>)
+  </div>)
 }
 
 export default App
