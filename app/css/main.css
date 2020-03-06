@@ -206,10 +206,33 @@ body {
   display: block;
 }
 
-#flagpole {
-  height: 100%;
+.heroku-logo {
   position: absolute;
-  transform: translateX(-60%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5.5%;
+}
+
+.tree-sticker {
+  position: absolute;
+  top: 62%;
+  left: 60%;
+  width: 14%;
+}
+
+.cloud-sticker {
+  position: absolute;
+  top: 27%;
+  left: 63%;
+  width: 12%;
+}
+
+.i-love-code-sticker {
+  position: absolute;
+  top: 58%;
+  left: 66%;
+  width: 9%;
 }
 
 .flag {

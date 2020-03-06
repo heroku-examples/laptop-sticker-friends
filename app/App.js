@@ -15,36 +15,42 @@ import laptopFrontSvg from './images/laptop-front.svg'
 // import testImage from './images/test-image.png'
 
 import useAnimation from './useAnimation';
-import stickerGo from './images/stickers/go.svg';
-import stickerClojure from './images/stickers/clojure.svg';
-import stickerJava from './images/stickers/java.svg';
-import stickerPhp from './images/stickers/php.svg';
-import stickerNode from './images/stickers/node.svg';
-import stickerPython from './images/stickers/python.svg';
-import stickerRuby from './images/stickers/ruby.svg';
-import stickerScala from './images/stickers/scala.svg';
+import stickerGo from './images/stickers/languages/go.svg';
+import stickerClojure from './images/stickers/languages/clojure.svg';
+import stickerJava from './images/stickers/languages/java.svg';
+import stickerPhp from './images/stickers/languages/php.svg';
+import stickerNode from './images/stickers/languages/node.svg';
+import stickerPython from './images/stickers/languages/python.svg';
+import stickerRuby from './images/stickers/languages/ruby.svg';
+import stickerScala from './images/stickers/languages/scala.svg';
 
-import stickerGoColor from './images/stickers/color/go.svg';
-import stickerClojureColor from './images/stickers/color/clojure.svg';
-import stickerJavaColor from './images/stickers/color/java.svg';
-import stickerPhpColor from './images/stickers/color/php.svg';
-import stickerNodeColor from './images/stickers/color/node.svg';
-import stickerPythonColor from './images/stickers/color/python.svg';
-import stickerScalaColor from './images/stickers/color/scala.svg';
+import stickerGoColor from './images/stickers/languages/color/go.svg';
+import stickerClojureColor from './images/stickers/languages/color/clojure.svg';
+import stickerJavaColor from './images/stickers/languages/color/java.svg';
+import stickerPhpColor from './images/stickers/languages/color/php.svg';
+import stickerNodeColor from './images/stickers/languages/color/node.svg';
+import stickerPythonColor from './images/stickers/languages/color/python.svg';
+import stickerScalaColor from './images/stickers/languages/color/scala.svg';
 
 
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.png'
 import architectureDiagramZoom from './images/architecture-diagram-zoom.jpg'
 
-import flagHeroku from './images/flag-heroku.svg'
-import flagOregon from './images/flag-oregon.svg'
-import flagVirginia from './images/flag-virginia.svg'
-import flagUS from './images/flag-us.svg'
-import flagIreland from './images/flag-ireland.svg'
-import flagJapan from './images/flag-japan.svg'
-import flagAustralia from './images/flag-australia.svg'
-import flagGermany from './images/flag-germany.svg'
+import flagHeroku from './images/stickers/flags/heroku.svg'
+import flagOregon from './images/stickers/flags/oregon.svg'
+import flagVirginia from './images/stickers/flags/virginia.svg'
+import flagUS from './images/stickers/flags/usa.svg'
+import flagIreland from './images/stickers/flags/ireland.svg'
+import flagJapan from './images/stickers/flags/japan.svg'
+import flagAustralia from './images/stickers/flags/australia.svg'
+import flagGermany from './images/stickers/flags/germany.svg'
+
+import treeSticker from './images/stickers/tree.svg'
+import iLoveCodeSticker from './images/stickers/i-love-code.svg'
+import cloudSticker from './images/stickers/cloud.svg'
+import herokuLogo from './images/heroku-logo.svg'
+
 // The initial step is 0 which hides everything
 const INITIAL_STEP = 0
 const STEP_COUNT = 10
@@ -348,6 +354,11 @@ const App = ({ ws }) => {
       <img src={laptopBackSvg} className='laptop laptop-back' />
       <img src={laptopFrontSvg} className='laptop laptop-front' />
 
+      <img src={herokuLogo} className='heroku-logo' />
+      <img src={treeSticker} className='tree-sticker' />
+      <img src={cloudSticker} className='cloud-sticker' />
+      <img src={iLoveCodeSticker} className='i-love-code-sticker' />
+      
       <div className="steam lottie"></div>
       <div className="music lottie"></div>
 
