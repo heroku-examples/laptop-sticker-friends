@@ -35,7 +35,7 @@ import stickerScalaColor from './images/stickers/languages/color/scala.svg';
 
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.png'
-import architectureDiagramZoom from './images/architecture-diagram-zoom.jpg'
+import architectureDiagramZoom from './images/zoomed-diagram.png'
 
 import flagHeroku from './images/stickers/flags/heroku.svg'
 import flagOregon from './images/stickers/flags/oregon.svg'
@@ -376,13 +376,12 @@ const App = ({ ws }) => {
         </h1>
       )}
       <div data-step={auto ? 10 : 11} id="architecture-diagram" onClick={() => showZoomedDiagram && toggleZoom()}>
-        {showZoomedDiagram? (
-          <div>
-            <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
-          </div>
-        ):(<>
+        {showZoomedDiagram? (<>
+          <div className="diagram-zoomedin-background"></div>
+          <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
+        </>):(<>
           <div className="diagram-clickable-area" onClick={toggleZoom}></div>
-          <img src={architectureDiagram} />
+          <img className="diagram-image" src={architectureDiagram} />
           </>
         )}
       </div>
@@ -475,7 +474,7 @@ const App = ({ ws }) => {
       <div data-step="3" className='brand-list-background'></div>
       <img src={logos} data-step="3" className="brand-list"/>
 
-      {showQRCode && attendeeAppUrl && step!==3 && (
+      {showQRCode && attendeeAppUrl && !showZoomedDiagram && step!==3 && (
         <>
           <div id="QR-code">
             <QRCode

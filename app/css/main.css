@@ -85,6 +85,15 @@ body {
   box-sizing: border-box;
 }
 
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+
 .background-gradient-top {
   position: absolute;
   background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
@@ -139,43 +148,43 @@ body {
   display: block;
 }
 
-.step-11 .laptop-container {
-  transform: translate(-50%,-50%) rotateY(180deg);
-  transition: transform 500ms;
-}
-.step-11 #QR-code,
-.step-11 #QR-code-url,
-.step-11 .laptop-front,
-.step-11 #architecture-diagram > img,
+.steam,
 .step-11 .background-gradient-top,
 .step-11 .background-gradient-bottom {
   transform: rotateY(180deg);
-  transition: transform 500ms;
+  transition: transform 500ms ease-in-out 500ms;
 }
 
 .step-11 #architecture-diagram > img {
-  top: 28.8%;
-  left: 28.06%;
-  width: 45.3%;
-  position: absolute;
+  opacity: 1;
+}
+
+@keyframes flip {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  /* 50% {
+    transform: translate(-50%, -50%) scale(0.5) rotateY(90deg);
+  } */
+
+  100% {
+    transform: translate(-50%, -50%) rotateY(180deg);
+  }
+}
+
+.step-11 .laptop-container {
+  animation: flip 500ms;
 }
 
 .step-11 .music {
-  left: 93%;
+  left: 4%;
   top: 50%;
 }
 
-.step-11 #QR-code {
-  left: 87%;
+.step-11 .steam {
+  left: 76%;
 }
-
-
-/* .step-11 .background-gradient-top,
-.step-11 .background-gradient-bottom,
-.step-11 .steam,
-.step-11 .music {
-  transform: rotateY(180deg);
-} */
 
 .heroku-logo {
   position: absolute;
@@ -438,37 +447,45 @@ body {
   z-index: 2;
 }
 
-/* #architecture-diagram {
-  position: absolute;
-  top: 28.8%;
-  left: 27.2%;
-  width: 44.2%;
-  height: 41%;
-  background-image: linear-gradient(
-    30deg,
-    rgba(0, 20, 50, 0.95) 0%,
-    rgba(11, 68, 114, 0.95) 60%
-  );
-  z-index: 10;
-  
-} */
-
-#architecture-diagram > img {
+#architecture-diagram .diagram-image {
   top: 28.8%;
   left: 26.6%;
   width: 45.3%;
   position: absolute;
+  opacity: 0;
 }
 
-
+.diagram-clickable-area {
+  top: 57.8%;
+  background-color: #FFF;
+  opacity: 0;
+  left: 57.06%;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  z-index: 1;
+}
 
 .zoomed-architecture-diagram {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  height: 100%;
+  opacity: 1;
+  animation: fadein 300ms;
 }
 
+.diagram-zoomedin-background {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  animation: fadein 300ms;
+}
 /* help command list */
 
 #command-help div {
