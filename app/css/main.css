@@ -109,64 +109,6 @@ body {
   transition: width 300ms ease-in, height 300ms ease-in;
 }
 
-@keyframes laptopflip {
-  0% {
-    transform: translate(-50%, -50%);
-  }
-  /* 25% {
-    transform: translate(-100%, -50%) scale(0.5) rotateY(45deg);
-  } */
-  50% {
-    transform: translate(-10%, -45%) scale(0.5) rotateY(90deg);
-  }
-
-  /* 66% {
-    transform: translate(-70%, -50%) scale(0.7) rotateY(130deg);
-  } */
-
-  100% {
-    /* visibility: hidden; */
-    transform: translate(-50%, -50%) scale(1) rotateY(180deg);
-  }
-} 
-
-@keyframes bodyflip {
-  0% {
-    transform: scale(1) rotateY(0);
-  }
-  /* 25% {
-    transform: translate(-100%, -50%) scale(0.5) rotateY(45deg);
-  } */
-  50% {
-     transform: scale(0.3) rotateY(180deg);
-  }
-
-  /* 66% {
-    transform: translate(-70%, -50%) scale(0.7) rotateY(130deg);
-  } */
-
-  100% {
-    /* visibility: hidden; */
-    transform: scale(1) rotateY(360deg);
-  }
-}
-
-.laptop-container {
-
-}
-
-.background-gradient-top,
-.background-gradient-bottom {
-  /* transform-origin: 50% 50% 1000px;
-  animation: laptopflip 1000ms ease 2000ms; */
-}
-
-body {
-  /* transform-origin: 1000px;
-  animation: bodyflip 3000ms ease 2000ms; */
-}
-
-
 .laptop {
   position: absolute;
   left: 0;
@@ -188,7 +130,8 @@ body {
 .step-11 #characters,
 .step-11 #regional-flags,
 .step-11 #animated-stickers,
-.step-11 #laptop-base-stickers {
+.step-11 #laptop-base-stickers,
+.step-11 #submissions {
   display: none;
 }
 
@@ -198,8 +141,8 @@ body {
 
 .step-11 .laptop-container {
   transform: translate(-50%,-50%) rotateY(180deg);
+  transition: transform 500ms;
 }
-
 .step-11 #QR-code,
 .step-11 #QR-code-url,
 .step-11 .laptop-front,
@@ -207,6 +150,7 @@ body {
 .step-11 .background-gradient-top,
 .step-11 .background-gradient-bottom {
   transform: rotateY(180deg);
+  transition: transform 500ms;
 }
 
 .step-11 #architecture-diagram > img {
