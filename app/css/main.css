@@ -152,24 +152,13 @@ body {
 }
 
 .laptop-container {
-  /*
-  transform-origin: 50% 50% 1000px;
-    transform: translate(-50%, -50%) scale(0.5) rotateY(369deg);
-    */
-  /* perspective: 1000px; */
-  /* transform-origin: right; */
-  transform-origin: 50% 50% 1000px;
-  animation: laptopflip 1000ms ease 2000ms;
-  /* -webkit-backface-visibility: hidden; */
-  /* backface-visibility: hidden;   */
-  /* transform: translate(-50%, -50%) scale(1) rotateY(180deg); */
-  /* transform: translate(-50%, -50%) scale(0.5) rotateY(180deg); */
+
 }
 
 .background-gradient-top,
 .background-gradient-bottom {
-  transform-origin: 50% 50% 1000px;
-  animation: laptopflip 1000ms ease 2000ms;
+  /* transform-origin: 50% 50% 1000px;
+  animation: laptopflip 1000ms ease 2000ms; */
 }
 
 body {
@@ -198,13 +187,51 @@ body {
 .step-11 .laptop-back,
 .step-11 #characters,
 .step-11 #regional-flags,
-.step-11 #animated-stickers {
+.step-11 #animated-stickers,
+.step-11 #laptop-base-stickers {
   display: none;
 }
 
 .step-11 .laptop-front {
   display: block;
 }
+
+.step-11 .laptop-container {
+  transform: translate(-50%,-50%) rotateY(180deg);
+}
+
+.step-11 #QR-code,
+.step-11 #QR-code-url,
+.step-11 .laptop-front,
+.step-11 #architecture-diagram > img,
+.step-11 .background-gradient-top,
+.step-11 .background-gradient-bottom {
+  transform: rotateY(180deg);
+}
+
+.step-11 #architecture-diagram > img {
+  top: 28.8%;
+  left: 28.06%;
+  width: 45.3%;
+  position: absolute;
+}
+
+.step-11 .music {
+  left: 93%;
+  top: 50%;
+}
+
+.step-11 #QR-code {
+  left: 87%;
+}
+
+
+/* .step-11 .background-gradient-top,
+.step-11 .background-gradient-bottom,
+.step-11 .steam,
+.step-11 .music {
+  transform: rotateY(180deg);
+} */
 
 .heroku-logo {
   position: absolute;
@@ -237,14 +264,14 @@ body {
 
 .flag {
   position: absolute;
-  left: 27%;
-  top: 28%;
+  left: 29%;
+  top: 77%;
   z-index: 9;
-  width: 4%;
+  width: 3%;
 }
 
 .flag:nth-child(2) {
-   top: left 31%;
+   left: 32%;
 }
 
 .steam {
@@ -319,7 +346,7 @@ body {
 
 .sticker-php {
   left: 28.5%;
-  top: 64%;
+  top: 62%;
   width: 11.7%;
 }
 
@@ -394,7 +421,7 @@ body {
 
 .sticker-clojure {
   left: 28.4%;
-  top: 54%;
+  top: 52%;
   /* They are in em because rotation doesn't work well without a specific width and height and can't rely on % or vh/vw */
   width: 4.6em;
   height: 4.6em;
@@ -683,10 +710,10 @@ body {
 }
 
 .brand-list {
-  width: 90%;
+  width: 80%;
   position: absolute;
-  left: 5%;
-  top: 82%;
+  left: 10%;
+  top: 86%;
   z-index: 9;
 }
 

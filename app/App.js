@@ -354,11 +354,13 @@ const App = ({ ws }) => {
       <img src={laptopBackSvg} className='laptop laptop-back' />
       <img src={laptopFrontSvg} className='laptop laptop-front' />
 
-      <img src={herokuLogo} className='heroku-logo' />
-      <img src={treeSticker} className='tree-sticker' />
-      <img src={cloudSticker} className='cloud-sticker' />
-      <img src={iLoveCodeSticker} className='i-love-code-sticker' />
-      
+      <div id="laptop-base-stickers">
+        <img src={herokuLogo} className='heroku-logo' />
+        <img src={treeSticker} className='tree-sticker' />
+        <img src={cloudSticker} className='cloud-sticker' />
+        <img src={iLoveCodeSticker} className='i-love-code-sticker' />
+      </div>
+
       <div className="steam lottie"></div>
       <div className="music lottie"></div>
 
