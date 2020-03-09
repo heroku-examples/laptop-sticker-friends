@@ -92,11 +92,11 @@ body {
 }
 
 .background-2 .background-gradient-top{
-  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(0,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
+  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
 }
 
 .background-3 .background-gradient-top{
-  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(250,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
+  background: linear-gradient(132deg, rgba(165,215,229,1) 0%, rgba(165,215,229,1) 20%, rgba(206,186,231,1) 50%, rgba(206,186,231,1) 80%);
 }
 
 .background-gradient-bottom {
@@ -123,6 +123,7 @@ body {
 
 .laptop-front {
   display: none;
+  z-index: 1;
 }
 
 .main-background {
@@ -148,7 +149,7 @@ body {
 .step-11 .background-gradient-top,
 .step-11 .background-gradient-bottom {
   transform: rotateY(180deg);
-  transition: transform 500ms ease-in-out;
+  /* transition: transform 500ms ease-in-out; */
 }
 
 @keyframes flip {
@@ -166,7 +167,7 @@ body {
 }
 
 .step-11 .laptop-container {
-  animation: flip 500ms;
+  /* animation: flip 500ms; */
 }
 
 .step-11 .music {
@@ -244,9 +245,9 @@ body {
 }
 
 #animated-stickers .sticker.active img {
-  transition: opacity 300ms ease-in var(--animation-delay);
+  transition: opacity 300ms ease-in;
 }
-
+/* var(--animation-delay); */
 .sticker-color {
   opacity: 0;
   z-index: 5;
@@ -320,7 +321,7 @@ body {
 }
 
 .sticker-node.active {
-  animation: bounce 500ms linear var(--animation-delay);
+  animation: bounce 500ms linear;
 }
 
 
@@ -347,10 +348,10 @@ body {
 }
 
 .sticker-scala.active {
-  animation: wiggle 500ms linear var(--animation-delay);
+  animation: wiggle 500ms linear; 
 }
 
-
+/* var(--animation-delay); */
 .sticker-scala.active .sticker-resting {
   opacity: 0;
 }
@@ -373,8 +374,9 @@ body {
 }
 
 .sticker-clojure.active {
-  animation: spin 500ms linear var(--animation-delay);
+  animation: spin 500ms linear; 
 }
+/* var(--animation-delay); */
 
 .sticker-clojure.active .sticker-resting {
   opacity: 0;
@@ -398,7 +400,7 @@ body {
   opacity: 0;
   transition: opacity 300ms ease-in;
 }
-
+/* var(--animation-delay); */
 .sticker-ruby.active .sticker-resting {
   opacity: 1;
 }
@@ -439,7 +441,16 @@ body {
   left: 26.6%;
   width: 45.3%;
   position: absolute;
-  animation: fadein 300ms ease-in-out 5000ms;
+}
+
+.diagram-background {
+  top: 28.8%;
+  left: 26.6%;
+  width: 45.3%;
+  height: 42%;
+  position: absolute;
+  z-index: 0;
+  background: linear-gradient(60deg, #473F99 0%, #4F4A92 50%, #6A4C9A 100%);
 }
 
 .diagram-clickable-area {
@@ -461,6 +472,7 @@ body {
   height: 100%;
   opacity: 1;
   display: none;
+  z-index: 2;
 }
 
 .diagram-zoomedin-background {
@@ -473,6 +485,7 @@ body {
   position: absolute;
   animation: fadein 300ms;
   display: none;
+  z-index: 2;
 }
 
 .zoomed-in .zoomed-architecture-diagram,
@@ -539,7 +552,7 @@ body {
   color: #5D32A4;
   border-radius: 0.7em;
   opacity: 1;
-  transition: opacity 0.2s ease-in-out 300ms, font-size 0.2s ease-in-out;
+  transition: opacity 200ms ease-in-out 300ms, font-size 0.2s ease-in-out;
 }
 
 .talk-bubble.char-1 {

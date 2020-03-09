@@ -34,7 +34,7 @@ import stickerScalaColor from './images/stickers/languages/color/scala.svg';
 
 
 import logos from './images/logos.svg'
-import architectureDiagram from './images/architecture-diagram.png'
+import architectureDiagram from './images/architecture-diagram.svg'
 import architectureDiagramZoom from './images/zoomed-diagram.png'
 
 import flagHeroku from './images/stickers/flags/heroku.svg'
@@ -60,6 +60,8 @@ const INITIAL_AUTO_STEP = 1
 const STEP_COUNT_AUTO = 9
 const INITIAL_AUTO = false
 const STICKER_ANIMATION_TIME_BETWEEN = 7000
+const STICKER_ANIMATION_STOP_AFTER = 4000
+
 // const STICKER_ANIMATION_LIST = _.shuffle(['ruby', 'ruby', 'ruby', 'ruby'])
 const STICKER_ANIMATION_LIST = _.shuffle(['node', 'scala', 'clojure', 'ruby'])
 const LAPTOP_DESK_FROM_CENTER = 0.145 
@@ -116,6 +118,7 @@ const App = ({ ws }) => {
   const [containerSize, setContainerSize] = useState(null)
   const [fitWidth, setFitWidth] = useState(false)
   const [stickerAnimation, setStickerAnimation] = useState(null)
+  const [nextStickerAnimation, setNextStickerAnimation] = useState(null)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -243,6 +246,7 @@ const App = ({ ws }) => {
     setContainerSize(size)
   }
 
+
   useEffect(() => {
     let handler
     const img = new Image()
@@ -290,9 +294,19 @@ const App = ({ ws }) => {
         node.style.display = hideOrShow === 'show' ? 'none' : 'block'
       }
     })
-
+    console.log(step)
     //Reseting the diagram
     setShowZoomedDiagram(false)
+
+    if (step === 0) {
+      let next = nextStickerAnimation || STICKER_ANIMATION_LIST[0];
+      // setStickerAnimation(next)
+      setNextStickerAnimation(next)
+    } 
+     else if(nextStickerAnimation) {
+      // setNextStickerAnimation(null)
+      //  setStickerAnimation(null)
+    }
 
     return () =>
       [...document.querySelectorAll('[data-step]')].forEach((node) => {
@@ -310,25 +324,30 @@ const App = ({ ws }) => {
   //Setting sticker animations
   useInterval(
     () => {
-      const currentIndex = STICKER_ANIMATION_LIST.indexOf(stickerAnimation)
-      const nextIndex = currentIndex + 1 >= STICKER_ANIMATION_LIST.length? 0 : currentIndex + 1
+      const nextIndex = getNextAnimationIndex(nextStickerAnimation)
       const nextAnimation = STICKER_ANIMATION_LIST[nextIndex]
+      setNextStickerAnimation(nextAnimation)
       setStickerAnimation(nextAnimation)
-
       if (animations && nextAnimation === 'ruby') {
         animations.ruby.play()
       } else if (animations) {
         animations.ruby.pause()
       }
     },
-    stickerAnimation? STICKER_ANIMATION_TIME_BETWEEN : null
+    step===0? STICKER_ANIMATION_TIME_BETWEEN : null
   )
 
-  useEffect(() => {
-    setTimeout(() => {
-      setStickerAnimation(STICKER_ANIMATION_LIST[0])
-    }, STICKER_ANIMATION_TIME_BETWEEN)
-  }, [])
+  useInterval(
+    () => {
+      setStickerAnimation(null)
+    },
+    stickerAnimation? STICKER_ANIMATION_STOP_AFTER : null
+  )
+
+  const getNextAnimationIndex = (animationKey) => {
+    const currentIndex = STICKER_ANIMATION_LIST.indexOf(animationKey)
+    return currentIndex + 1 >= STICKER_ANIMATION_LIST.length? 0 : currentIndex + 1
+  }
 
   const toggleZoom = () => {
     setShowZoomedDiagram((prev) => !prev)
@@ -380,6 +399,7 @@ const App = ({ ws }) => {
           <div className="diagram-zoomedin-background"></div>
           <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
           <div className="diagram-clickable-area" onClick={toggleZoom}></div>
+          <div className="diagram-background"></div>
           <img className="diagram-image" src={architectureDiagram} />
       </div>
 
@@ -430,7 +450,7 @@ const App = ({ ws }) => {
             </div>
             <div className="talk-bubble char-4" data-step="6">
               Or used across these three together! Heroku makes it easy to use
-              that data in apps built with all those programming languages Appy
+              that data in apps built with all those programming languages Gophie
               mentioned before.
             </div>
             <div className="talk-bubble char-2" data-step="7">
@@ -471,7 +491,7 @@ const App = ({ ws }) => {
       <div data-step="3" className='brand-list-background'></div>
       <img src={logos} data-step="3" className="brand-list"/>
 
-      {showQRCode && attendeeAppUrl && !showZoomedDiagram && step!==3 && (
+      {showQRCode && attendeeAppUrl && !showZoomedDiagram && (
         <>
           <div id="QR-code">
             <QRCode
