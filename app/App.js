@@ -60,6 +60,7 @@ const INITIAL_AUTO_STEP = 1
 const STEP_COUNT_AUTO = 9
 const INITIAL_AUTO = false
 const STICKER_ANIMATION_TIME_BETWEEN = 7000
+// const STICKER_ANIMATION_LIST = _.shuffle(['ruby', 'ruby', 'ruby', 'ruby'])
 const STICKER_ANIMATION_LIST = _.shuffle(['node', 'scala', 'clojure', 'ruby'])
 const LAPTOP_DESK_FROM_CENTER = 0.145 
 // The distance from the center of the laptop image to the part desk starts is 14.5% of the image height.

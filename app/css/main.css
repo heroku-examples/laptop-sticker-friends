@@ -9,6 +9,8 @@
 
 :root {
   --triangle-border-width: 0.7em;
+  --animation-delay: 4000ms;
+  --talk-bubble-border-color: #9696cd;
 }
 
 html,body {
@@ -241,10 +243,6 @@ body {
   left: 0;
 }
 
-#animated-stickers {
-  --animation-delay: 4000ms;
-}
-
 #animated-stickers .sticker.active img {
   transition: opacity 300ms ease-in var(--animation-delay);
 }
@@ -394,15 +392,15 @@ body {
 
 .sticker-ruby .lottie {
   position: absolute;
-  width: 200%;
-  top: -4em;
-  left: -3.6em;
+  width: 202%;
+  top: -4.06em;
+  left: -3.55em;
   opacity: 0;
   transition: opacity 300ms ease-in;
 }
 
 .sticker-ruby.active .sticker-resting {
-  opacity: 0;
+  opacity: 1;
 }
 
 .sticker-ruby.active .sticker-color {
@@ -531,16 +529,15 @@ body {
 }
 
 /* dialogue */
-
+/* #9696cd */
 .talk-bubble {
   padding: 1em;
   position: absolute;
   background: rgba(255,255,255,0.9);
-  border: 0.1em solid #E1E1F1;
+  border: 0.1em solid var(--talk-bubble-border-color);
   font-size: 1.3em;
   color: #5D32A4;
   border-radius: 0.7em;
-  color: #5D32A4;
   opacity: 1;
   transition: opacity 0.2s ease-in-out 300ms, font-size 0.2s ease-in-out;
 }
@@ -548,6 +545,7 @@ body {
 .talk-bubble.char-1 {
   left: 46%;
   top: 38%;
+  width: 8%;
 }
 
 .talk-bubble.char-2 {
@@ -576,12 +574,12 @@ body {
 
  .talk-bubble.char-1:before,
  .talk-bubble.char-1:after {
-  left: -11%;
+  left: -17%;
   top: 22%;
   border-top: var(--triangle-border-width) solid transparent;
   border-bottom: var(--triangle-border-width) solid transparent;
   /* border-right: 1em solid #9999CE; */
-  border-right: 1em solid #E1E1F1
+  border-right: 1em solid var(--talk-bubble-border-color)
 }
 
 .talk-bubble.char-1:after {
@@ -596,7 +594,7 @@ body {
   border-top: var(--triangle-border-width) solid transparent;
   border-bottom: var(--triangle-border-width) solid transparent;
   /* border-right: 1em solid #9999CE; */
-  border-right: 1em solid #E1E1F1
+  border-right: 1em solid var(--talk-bubble-border-color)
 }
 
 .talk-bubble.char-2:after {
@@ -611,7 +609,7 @@ body {
   border-left: var(--triangle-border-width) solid transparent;
   /* border-right: 1em solid #9999CE; */
   border-right: var(--triangle-border-width) solid transparent;
-  border-bottom: 1em solid #E1E1F1;
+  border-bottom: 1em solid var(--talk-bubble-border-color)
 }
 
 .talk-bubble.char-3:after {
@@ -626,7 +624,7 @@ body {
   border-top: var(--triangle-border-width) solid transparent;
   border-bottom: var(--triangle-border-width) solid transparent;
   /* border-right: 1em solid #9999CE; */
-  border-right: 1em solid #E1E1F1
+  border-right: 1em solid var(--talk-bubble-border-color)
 }
 
 .talk-bubble.char-4:after {
@@ -669,7 +667,7 @@ body {
 #QR-code {
   position: absolute;
   top: 5%;
-  left: 2%;
+  left: 3%;
   width: 10%;
   padding: 1%;
   background-color: #FFF;
@@ -679,9 +677,9 @@ body {
 #QR-code-url {
   position: absolute;
   top: 4%;
-  left: 14%;
+  left: 15%;
   color: #795a9d;
-  font-size: 3em;
+  font-size: 2.5em;
   transition: font-size 300ms ease-in;
   animation: qrenter 300ms;
 }
