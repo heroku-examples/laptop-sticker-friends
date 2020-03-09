@@ -156,9 +156,7 @@ const App = ({ ws }) => {
   }, [])
 
   useEffect(() => {
-
     if (!attendeeAppName) return
-
     if (attendeeAppName.startsWith('http')) {
       setAttendeeAppUrl(attendeeAppName)
     } else {
@@ -346,7 +344,7 @@ const App = ({ ws }) => {
     top: containerSize? (window.innerHeight/2 + containerSize.heightPx * LAPTOP_DESK_FROM_CENTER) /window.innerHeight *100 + 'vh' : 'auto'
   }
 
-  return (<div className={`step-${step}`}>
+  return (<div className={`step-${step} ${(auto ? 10===step : 11===step)? 'step-diagram' : ''}`}>
     <div className='background-gradient-top'></div>
     <div className='background-gradient-bottom' style={bottomGradientStyle}></div>
     <div className={`${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
@@ -375,15 +373,13 @@ const App = ({ ws }) => {
           What is Heroku?
         </h1>
       )}
-      <div data-step={auto ? 10 : 11} id="architecture-diagram" onClick={() => showZoomedDiagram && toggleZoom()}>
-        {showZoomedDiagram? (<>
+      <div data-step={auto ? 10 : 11} id="architecture-diagram" 
+           className={showZoomedDiagram? 'zoomed-in' : ''} 
+      onClick={() => showZoomedDiagram && toggleZoom()}>
           <div className="diagram-zoomedin-background"></div>
           <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
-        </>):(<>
           <div className="diagram-clickable-area" onClick={toggleZoom}></div>
           <img className="diagram-image" src={architectureDiagram} />
-          </>
-        )}
       </div>
 
       <div id="regional-flags">
