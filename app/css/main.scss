@@ -1,0 +1,769 @@
+/*
+  PLEASE READ
+  In this app, the font-size of the main container is set to 1% of the container width which isn't always the window width.
+  Therefore, you can't rely on vw.
+  1em === 1% of the width of the main container.
+  Also border doesn't take % so you can use em instead.
+*/
+
+:root {
+  --triangle-border-width: 0.7em;
+  --animation-delay: 4000ms;
+  --talk-bubble-border-color: #9696cd;
+}
+
+html,body {
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 200;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Book.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Book.woff) format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Book.ttf)
+      format('truetype');
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.woff)
+      format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Regular.ttf)
+      format('truetype');
+}
+
+@font-face {
+  font-family: salesforce-sans;
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.woff) format('woff'),
+    url(https://www.herokucdn.com/fonts/SalesforceSans-Bold.ttf)
+      format('truetype');
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  background-repeat: repeat-x;
+  font-family: 'salesforce-sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+
+.background-gradient-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background-1 .background-gradient-top {
+  background: linear-gradient(130deg,
+   rgba(66, 174, 204, 0.5) 0%, 
+   rgba(138, 151, 233, 0.5) 50%, 
+   rgba(157, 112, 208, 0.5) 100%);
+}
+
+.background-2 .background-gradient-top {
+  background: linear-gradient(130deg,
+   rgba(66, 174, 204, 0.5) 0%, 
+   rgba(138, 151, 233, 0.5) 50%, 
+   rgba(157, 112, 208, 0.5) 100%);
+}
+
+.background-3 .background-gradient-top {
+  background: linear-gradient(130deg,
+   rgba(66, 174, 204, 0.5) 0%, 
+   rgba(138, 151, 233, 0.5) 50%, 
+   rgba(157, 112, 208, 0.5) 100%);
+}
+
+.background-gradient-bottom {
+  width: 100vw;
+  height: 50vh;
+  background: linear-gradient(130deg, 
+  #42AECC 0%, 
+  #8A96E9 50%, 
+  #9D70D0 100%);  
+  position: absolute;
+}
+
+.laptop-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 300ms ease-in, height 300ms ease-in;
+}
+
+.laptop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height:100%;
+}
+
+.laptop-front {
+  display: none;
+  z-index: 1;
+}
+
+.main-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* .step-diagram is added when the front side of the laptop is showsn*/
+.step-diagram {
+
+  .laptop-back,
+  #characters,
+  #regional-flags,
+  #animated-stickers,
+  #laptop-base-stickers,
+  #submissions,
+  .conf-logo {
+    display: none;
+  }
+
+  .laptop-front {
+    display: block;
+  }
+
+  .steam,
+  .background-gradient-top,
+  .background-gradient-bottom {
+    transform: rotateY(180deg);
+    transition: transform 500ms;
+  }
+
+  .music {
+    left: 4%;
+    top: 50%;
+  }
+  
+  .steam {
+    left: 76%;
+  }
+  
+}
+
+@keyframes flip {
+  0% {
+
+  }
+
+  50% {
+    transform: translate(-30%) rotateY(90deg) scale(0.5);
+  }
+
+  100% {
+    transform: translate(0) rotateY(0) scale(1);
+  }
+}
+
+
+.heroku-logo {
+  position: absolute;
+  top: 47.1%;
+  left: 47.6%;
+  width: 6%;
+}
+
+.tree-sticker {
+  position: absolute;
+  top: 62%;
+  left: 60%;
+  width: 14%;
+}
+
+.cloud-sticker {
+  position: absolute;
+  top: 27%;
+  left: 63%;
+  width: 12%;
+}
+
+.i-love-code-sticker {
+  position: absolute;
+  top: 58%;
+  left: 66%;
+  width: 9%;
+}
+
+.flag {
+  position: absolute;
+  left: 29%;
+  top: 77%;
+  z-index: 9;
+  width: 3%;
+}
+
+.flag:nth-child(2) {
+   left: 32%;
+}
+
+.conf-logo {
+  position: absolute;
+  width: 5.1%;
+  left: 14.7%;
+  top: 58%;
+  border-radius: 2px;
+  padding: 0.19em;
+}
+
+.steam {
+  position: absolute;
+  width: 13%;
+  left: 11%;
+  top: 27%;
+}
+
+.music {
+  position: absolute;
+  width: 10%;
+  left: 91%;
+  top: 61%;
+}
+
+.sticker {
+  position: absolute;
+  
+  img {
+    position: absolute;
+    transition: opacity 300ms ease-in 100ms;
+    top: 0;
+    left: 0;
+  }
+}
+
+#animated-stickers .sticker.active img {
+  transition: opacity 300ms ease-in;
+}
+
+.sticker-color {
+  opacity: 0;
+  z-index: 5;
+}
+
+.sticker-python {
+  left: 39.8%;
+  top: 38.1%;
+  width: 5.8%;
+}
+
+.step-1 .sticker-python {
+  .sticker-resting {
+    opacity: 0;
+  }
+  .sticker-color {
+    opacity: 1;
+    transform: scale(1.05) rotate(-5deg);
+  }
+}
+
+.sticker-go {
+  left: 39.1%;
+  top: 53.8%;
+  width: 5.7%;
+}
+
+.step-2 .sticker-go, 
+.step-7 .sticker-go {
+  .sticker-resting {
+    opacity: 0;
+  }
+
+  .sticker-color {
+    opacity: 1;
+    transform: scale(1.05) rotate(5deg);
+  }
+}
+
+
+.sticker-java {
+  left: 56.1%;
+  top: 32.5%;
+  width: 9.5%;
+}
+
+.step-4 .sticker-java {
+  .sticker-resting {
+    opacity: 0;
+  }
+  .sticker-color {
+    opacity: 1;
+    transform: scale(1.05) rotate(5deg);
+  }
+}
+
+.sticker-php {
+  left: 28.5%;
+  top: 62%;
+  width: 11.7%;
+}
+
+.step-5 .sticker-php,
+.step-6 .sticker-php,
+.step-9:not(.auto) .sticker-php,
+.auto.step-8 .sticker-php {
+  .sticker-resting {
+    opacity: 0;
+  }
+  .sticker-color {
+    opacity: 1;
+    transform: scale(1.05) rotate(-5deg);
+  }
+}
+
+@keyframes bounce {
+  0%   {top: 41%;}
+  25%  {top: 35%;}
+  50%  {top: 41%;}
+  75%  {top: 39%;}
+  100% {top: 41%;}
+}
+
+.sticker-node {
+  left: 28%;
+  top: 41%;
+  width: 4.5%;
+
+  &.active {
+    animation: bounce 500ms linear;
+
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes wiggle {
+  0%   {left: 34%;}
+  25%  {left: 34.5%;}
+  50%  {left: 33.5%;}
+  75%  {left: 34.5%;}
+  100% {left: 34%;}
+}
+
+.sticker-scala {
+  left: 34%;
+  top: 47%;
+  width: 3.2%;
+
+  &.active {
+    animation: wiggle 500ms linear; 
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes spin {
+  50%  {transform: rotate(360deg);}
+  100% {transform: rotate(720deg);}
+}
+
+.sticker-clojure {
+  left: 28.4%;
+  top: 52%;
+  /* They are in em because rotation doesn't work well without a specific width and height and can't rely on % or vh/vw */
+  width: 4.6em;
+  height: 4.6em;
+}
+
+.sticker-clojure.active {
+  animation: spin 500ms linear; 
+  .sticker-resting {
+    opacity: 0;
+  }
+  .sticker-color {
+    opacity: 1;
+  }
+}
+
+.sticker-ruby {
+  width: 4.8%;
+  top: 44%;
+  left: 64.7%;
+
+  .lottie {
+    position: absolute;
+    width: 202%;
+    top: -4.06em;
+    left: -3.55em;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+  }
+
+  &.active {
+    .sticker-resting {
+      opacity: 1;
+    }
+    .sticker-color {
+      opacity: 1;
+    }
+  }
+
+}
+
+/* title and architecture diagram */
+
+.auto-title {
+  position: absolute;
+  left: 15.2%;
+  top: 10%;
+  color: white;
+  font-size: 4em;
+  z-index: 2;
+}
+
+#architecture-diagram .diagram-image {
+  top: 28.8%;
+  left: 26.6%;
+  width: 45.3%;
+  position: absolute;
+}
+
+.diagram-background {
+  top: 28.8%;
+  left: 26.6%;
+  width: 45.3%;
+  height: 42%;
+  position: absolute;
+  z-index: 0;
+  background: linear-gradient(60deg, #473F99 0%, #4F4A92 50%, #6A4C9A 100%);
+}
+
+.diagram-clickable-area {
+  top: 57.8%;
+  background-color: #FFF;
+  opacity: 0;
+  left: 57.06%;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  z-index: 1;
+}
+
+.zoomed-architecture-diagram {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  opacity: 1;
+  display: none;
+  z-index: 2;
+}
+
+.diagram-zoomedin-background {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  animation: fadein 300ms;
+  display: none;
+  z-index: 2;
+}
+
+.zoomed-in .zoomed-architecture-diagram,
+.zoomed-in .diagram-zoomedin-background {
+  display: block;
+}
+
+/* help command list */
+#command-help {
+  div {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient( 30deg, rgba(0, 20, 50, 0.95) 0%, rgba(11, 68, 114, 0.95) 60% );
+  }
+  
+  h2 {
+    color: #FFFFFF;
+    font-size: 3em;
+  }
+
+  td,
+  th {
+    padding: 0.4em;
+    font-size: 1.4em;
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  td:nth-child(2) {
+    padding-left: 40px;
+  }
+  
+  td:first-child {
+    font-size: 1.8em;
+  }
+
+  span {
+    border: solid 0.1em #FFFFFF;
+    border-radius: 6px;
+    padding: 0.2em;
+    text-align: center;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+  }
+}
+
+
+/* dialogue */
+.talk-bubble {
+  padding: 1em;
+  position: absolute;
+  background: rgba(255,255,255,0.9);
+  border: 0.1em solid var(--talk-bubble-border-color);
+  font-size: 1.3em;
+  color: #5D32A4;
+  border-radius: 0.7em;
+  opacity: 1;
+  transition: opacity 200ms ease-in-out 300ms, font-size 0.2s ease-in-out;
+
+  &.char-1 {
+    left: 46%;
+    top: 38%;
+    width: 8%;
+    &:before,
+    &:after {
+      left: -17%;
+      top: 22%;
+      border-top: var(--triangle-border-width) solid transparent;
+      border-bottom: var(--triangle-border-width) solid transparent;
+      border-right: 1em solid var(--talk-bubble-border-color)
+    }
+    &:after {
+      margin-left: 0.2em;
+      border-right-color:#fff;
+    }
+  }
+
+  &.char-2 {
+    left: 46.3%;
+    top: 54%;
+    width: 28%;
+    &:before,
+    &:after {
+      left: -5%;
+      top: 15%;
+      border-top: var(--triangle-border-width) solid transparent;
+      border-bottom: var(--triangle-border-width) solid transparent;
+      border-right: 1em solid var(--talk-bubble-border-color)
+    }
+    &:after {
+      margin-left: 0.2em;
+      border-right-color:#FFF;
+    }
+  }
+
+  &.char-3 {
+    left: 54%;
+    top: 53.5%;
+    width: 21%;
+    &:before,
+    &:after {
+      left: 29%;
+      top: -17%;
+      border-left: var(--triangle-border-width) solid transparent;
+      border-right: var(--triangle-border-width) solid transparent;
+      border-bottom: 1em solid var(--talk-bubble-border-color)
+    }
+    &:after {
+      margin-top: 0.2em;
+      border-bottom-color:#FFF;
+    }
+  }
+
+  &.char-4 {
+    left: 42%;
+    top: 66%;
+    width: 31%;
+    &:before,
+    &:after {
+      left: -4.5%;
+      top: 22%;
+      border-top: var(--triangle-border-width) solid transparent;
+      border-bottom: var(--triangle-border-width) solid transparent;
+      border-right: 1em solid var(--talk-bubble-border-color)
+    }
+    &:after {
+      margin-left: 0.2em;
+      border-right-color:#fff;
+    }
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+  }
+
+}
+
+/* Brands */
+.brand-list-background {
+  width: 200%;
+  height: 21%;
+  top: 79%;
+  position: absolute;
+  z-index: 3;
+  transform: translate(-25%);
+}
+
+.brand-list {
+  width: 80%;
+  position: absolute;
+  left: 10%;
+  top: 86%;
+  z-index: 9;
+}
+
+/* URL and QR code */
+
+@keyframes qrenter {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#QR-code {
+  position: absolute;
+  top: 5%;
+  left: 3%;
+  width: 10%;
+  padding: 1%;
+  background-color: #FFF;
+  animation: qrenter 300ms;
+
+  svg {
+    display: block;
+  }
+}
+
+#QR-code-url {
+  position: absolute;
+  top: 4%;
+  left: 15%;
+  color: #795a9d;
+  font-size: 2.5em;
+  transition: font-size 300ms ease-in;
+  animation: qrenter 300ms;
+}
+
+/* Hidden links */
+.hidden-link {
+  width: 100px;
+  height: 100px;
+  display: block;
+  position: fixed;
+  top: 0;
+  opacity: 0;
+
+  &.heroku {
+    left: 0;
+  }
+
+  &.github {
+    right: 0;
+  }
+
+}
+
+#submissions {
+  img {
+    width: 8%;
+    z-index: 4;
+    position: absolute;
+    border-radius: 5px;
+    border: solid 0.11em rgb(216,207,227);
+  }
+
+  img:nth-child(1) {
+    top: 27%;
+    left: 31%;
+    transform: rotate(-24deg);
+  }
+
+  img:nth-child(2) {
+    top: 29%;
+    left: 47%;
+    transform: rotate(12deg);
+  }
+
+  img:nth-child(3) {
+    top: 54%;
+    left: 57%;
+    transform: rotate(27deg);
+  }
+
+  img:nth-child(4) {
+    top: 64%;
+    left: 46%;
+    transform: rotate(-17deg);
+  }
+
+}
+
+.step-item {
+  display: none;
+}
+
+.active.step-item {
+  display: block;
+}

@@ -25,11 +25,11 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-hotkeys-hook": "^1.5.3",
+    "react-use": "^13.27.0",
     "reconnecting-websocket": "^4.2.0",
     "style-loader": "^1.0.0",
     "svg-inline-loader": "^0.8.0",
     "url-loader": "^2.2.0",
-    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
@@ -41,7 +41,10 @@
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
-    "prettier": "^1.18.2"
+    "node-sass": "^4.13.1",
+    "prettier": "^1.18.2",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.42.0"
   },
   "engines": {
     "node": "10.15.3",

@@ -4,7 +4,7 @@ const config = require('getconfig')
 const _ = require('lodash')
 const { isDev } = config.getconfig
 
-const CLIENT_CONFIG_KEYS = ['region']
+const CLIENT_CONFIG_KEYS = ['region', 'confLogoUrl']
 
 module.exports = {
   output: {
@@ -26,8 +26,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg|ttf|eot|woff)(\?.*)?$/,

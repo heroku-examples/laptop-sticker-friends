@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef} from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { random } from 'lodash'
 import useInterval from '@use-it/interval'
+import {usePrevious} from 'react-use'
 import QRCode from 'qrcode.react'
 import api from './api'
 import useDisappearingState from './useDisappearingState'
 import config from './config'
 import constants from '../src/constants'
 import CommandHelp from './CommandHelp'
-
 import laptopBackSvg from './images/laptop-back.svg'
 import laptopFrontSvg from './images/laptop-front.svg'
 
@@ -59,11 +59,11 @@ const STEP_COUNT = 10
 const INITIAL_AUTO_STEP = 1
 const STEP_COUNT_AUTO = 9
 const INITIAL_AUTO = false
-const STICKER_ANIMATION_TIME_BETWEEN = 7000
-const STICKER_ANIMATION_STOP_AFTER = 4000
 
-// const STICKER_ANIMATION_LIST = _.shuffle(['ruby', 'ruby', 'ruby', 'ruby'])
+const STICKER_ANIMATION_TIME_BETWEEN = 7000
+const STICKER_ANIMATION_STOP_AFTER = 4000 // This is how long a sticker stays active
 const STICKER_ANIMATION_LIST = _.shuffle(['node', 'scala', 'clojure', 'ruby'])
+
 const LAPTOP_DESK_FROM_CENTER = 0.145 
 // The distance from the center of the laptop image to the part desk starts is 14.5% of the image height.
 // This is used to calculate where the bottom grandient should start
@@ -111,6 +111,7 @@ const App = ({ ws }) => {
   const [showZoomedDiagram, setShowZoomedDiagram] = useState(false)
   const [characters, setCharacters] = useState(null)
   const [step, setStep] = useState(INITIAL_STEP)
+  // const [prevStep, setPrevStep] = useState(null)
   const [auto, setAuto] = useState(INITIAL_AUTO)
   const [status, setStatus] = useState()
   const [region] = useState(config.region)
@@ -119,6 +120,10 @@ const App = ({ ws }) => {
   const [fitWidth, setFitWidth] = useState(false)
   const [stickerAnimation, setStickerAnimation] = useState(null)
   const [nextStickerAnimation, setNextStickerAnimation] = useState(null)
+  const [enterLeaveClasses, setEnterLeaveClasses] = useState('')
+  const [entered, setEntered] = useState(true)
+
+  const prevStep = usePrevious(step)
 
   // Hot keys to change steps and modes
   useHotkeys(
@@ -227,7 +232,6 @@ const App = ({ ws }) => {
   // When auto mode is changed, reset to the first step for the new mode
   useEffect(() => setStep(auto ? INITIAL_AUTO_STEP : INITIAL_STEP), [auto])
 
-
   const resizeHandler = (ratio) => {
     let _fitWidth = ratio*window.innerHeight > window.innerWidth
     let size = {}
@@ -280,40 +284,27 @@ const App = ({ ws }) => {
   }, [background])
 
   useEffect(() => {
-    const stepNodes = [...document.querySelectorAll('[data-step]')]
-    stepNodes.forEach((node) => {
-      const hideOrShow = node.getAttribute('data-step-action') || 'show'
-      const takeAction = node
-        .getAttribute('data-step')
-        .split(',')
-        .map((v) => Number(v))
-        .includes(step)
-      if (takeAction) {
-        node.style.display = hideOrShow === 'show' ? 'block' : 'none'
-      } else {
-        node.style.display = hideOrShow === 'show' ? 'none' : 'block'
-      }
-    })
-    console.log(step)
-    //Reseting the diagram
+    //resetting the diagram
     setShowZoomedDiagram(false)
 
     if (step === 0) {
       let next = nextStickerAnimation || STICKER_ANIMATION_LIST[0];
-      // setStickerAnimation(next)
       setNextStickerAnimation(next)
-    } 
-     else if(nextStickerAnimation) {
-      // setNextStickerAnimation(null)
-      //  setStickerAnimation(null)
     }
-
-    return () =>
-      [...document.querySelectorAll('[data-step]')].forEach((node) => {
-        const hideOrShow = node.getAttribute('data-step-action') || 'show'
-        node.style.display = hideOrShow === 'show' ? 'none' : 'block'
-      })
+    setEntered(true) //stopping the timer
+    setEnterLeaveClasses(`${!_.isNil(prevStep)? 'leaving prev-step-' + prevStep : ''} entering step-${step}`)
+    setEntered(false)
   }, [step])
+
+  useInterval(
+    () => {
+      setEnterLeaveClasses((prev) => {
+        return prev.replace('leaving', 'left').replace('entering', 'entered')
+      })
+      setEntered(true)
+    },
+    entered===false? 100 : null
+  )
 
   useEffect(()=>{
     if (characters && !animations) {
@@ -353,6 +344,16 @@ const App = ({ ws }) => {
     setShowZoomedDiagram((prev) => !prev)
   }
 
+  const getSequenceClasses = ({showOn = [], hideOn = []}) => {
+    let classNames = ['step-item']
+    if (showOn[0] === 'all' || showOn.indexOf(step) > -1) {
+      if (!(hideOn.indexOf(step) > -1)) {
+        classNames.push('active')
+      }
+    }
+    return classNames.join(' ')
+  }
+
   let baseStye = containerSize ? {
     width: containerSize.widthPx + 'px',
     height: containerSize.heightPx + 'px',
@@ -364,7 +365,7 @@ const App = ({ ws }) => {
     top: containerSize? (window.innerHeight/2 + containerSize.heightPx * LAPTOP_DESK_FROM_CENTER) /window.innerHeight *100 + 'vh' : 'auto'
   }
 
-  return (<div className={`step-${step} ${(auto ? 10===step : 11===step)? 'step-diagram' : ''}`}>
+  return (<div className={`${(auto ? 10===step : 11===step)? 'step-diagram' : ''} ${enterLeaveClasses}`}>
     <div className='background-gradient-top'></div>
     <div className='background-gradient-bottom' style={bottomGradientStyle}></div>
     <div className={`${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
@@ -379,6 +380,9 @@ const App = ({ ws }) => {
         <img src={iLoveCodeSticker} className='i-love-code-sticker' />
       </div>
 
+      {config.confLogoUrl && (
+         <img src={config.confLogoUrl} className="conf-logo" />
+      )}
       <div className="steam lottie"></div>
       <div className="music lottie"></div>
 
@@ -386,16 +390,15 @@ const App = ({ ws }) => {
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
         ))}
-        {/* <img src={testImage} /> */}
       </div>
       {auto && (
-        <h1 className="auto-title" data-step="3" data-step-action="hide">
+        <h1 className={`auto-title ${getSequenceClasses({showOn: ['all'], hideOn:[3]})}`}>
           What is Heroku?
         </h1>
       )}
-      <div data-step={auto ? 10 : 11} id="architecture-diagram" 
-           className={showZoomedDiagram? 'zoomed-in' : ''} 
-      onClick={() => showZoomedDiagram && toggleZoom()}>
+      <div id="architecture-diagram" 
+           className={`${showZoomedDiagram?'zoomed-in':''} ${getSequenceClasses({showOn: [auto ? 10 : 11]})}`}
+           onClick={() => showZoomedDiagram && toggleZoom()}>
           <div className="diagram-zoomedin-background"></div>
           <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
           <div className="diagram-clickable-area" onClick={toggleZoom}></div>
@@ -430,33 +433,34 @@ const App = ({ ws }) => {
           </div>
 
           <div id="talk-sequence">
-            <div className="talk-bubble char-1" data-step="1">
+          
+            <div className={`talk-bubble char-1 ${getSequenceClasses({showOn:[1]})}`} >
               What is Heroku?
             </div>
-            <div className="talk-bubble char-2" data-step="2">
+            <div className={`talk-bubble char-2 ${getSequenceClasses({showOn:[2]})}`}>
               Heroku helps programmers using Node.js, Python, Java and many
               other programming languages build anything they want and make it
               available to any internet user in minutes instead of hours or
               days.
             </div>
-            <div className="talk-bubble char-3" data-step="4">
+            <div className={`talk-bubble char-3 ${getSequenceClasses({showOn:[4]})}`}>
               But how would I use it with Sales Cloud or Service Cloud or
               Marketing Cloud?
             </div>
-            <div className="talk-bubble char-4" data-step="5">
+            <div className={`talk-bubble char-4 ${getSequenceClasses({showOn:[5]})}`}>
               Good question! Data integration is the key here. There’s so much
               of your business’s useful data in those clouds that could also be
               used for your customer-facing website or your mobile app.
             </div>
-            <div className="talk-bubble char-4" data-step="6">
+            <div className={`talk-bubble char-4 ${getSequenceClasses({showOn:[6]})}`}>
               Or used across these three together! Heroku makes it easy to use
               that data in apps built with all those programming languages Gophie
               mentioned before.
             </div>
-            <div className="talk-bubble char-2" data-step="7">
+            <div className={`talk-bubble char-2 ${getSequenceClasses({showOn:[7]})}`}>
               In fact, we’re in a web app hosted on Heroku right now!
             </div>
-            <div className="talk-bubble char-4" data-step={auto ? 8 : 9}>
+            <div className={`talk-bubble char-4 ${getSequenceClasses({showOn:[auto ? 8 : 9]})}`}>
               Why don’t we deploy an app now to show what it’s like to use
               Heroku as a developer? Maybe you want to create a mobile web app
               for a special promotion that allows your customers to share
@@ -488,8 +492,8 @@ const App = ({ ws }) => {
         </div>
       </div>
 
-      <div data-step="3" className='brand-list-background'></div>
-      <img src={logos} data-step="3" className="brand-list"/>
+      <div className={`brand-list-background ${getSequenceClasses({showOn:[3]})}`}></div>
+      <img src={logos} className={`brand-list ${getSequenceClasses({showOn:[3]})}`}/>
 
       {showQRCode && attendeeAppUrl && !showZoomedDiagram && (
         <>

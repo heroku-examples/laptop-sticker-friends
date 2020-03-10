@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 import App from './App'
 
-import './css/reset.css'
-import './css/main.css'
+import './css/reset.scss'
+import './css/main.scss'
 
 const wsUrl = `ws${window.location.href.match(/^http(s?:\/\/.*)\/.*$/)[1]}`
 const ws = new ReconnectingWebSocket(wsUrl, null, {

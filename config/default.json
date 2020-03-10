@@ -9,5 +9,6 @@
     "region": "$BUCKETEER_AWS_REGION",
     "bucket": "$BUCKETEER_BUCKET_NAME"
   },
-  "region": "$$REGION"
+  "region": "$$REGION",
+  "confLogoUrl": "$$CONF_LOGO_URL"
 }

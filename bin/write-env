@@ -23,3 +23,5 @@ echo "BUCKETEER_BUCKET_NAME=$(heroku config:get BUCKETEER_BUCKET_NAME $APP)" >> 
 echo "BUCKETEER_AWS_REGION=$(heroku config:get BUCKETEER_AWS_REGION $APP)" >> ./.env
 
 echo "DATABASE_URL=$(heroku config:get DATABASE_URL $APP)" >> ./.env
+
+echo "CONF_LOGO_URL=$(heroku config:get CONF_LOGO_URL $APP)" >> ./.env
