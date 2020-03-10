@@ -303,7 +303,7 @@ const App = ({ ws }) => {
       })
       setEntered(true)
     },
-    entered===false? 300 : null
+    entered===false? 500 : null
   )
 
   useEffect(()=>{
@@ -365,7 +365,7 @@ const App = ({ ws }) => {
     top: containerSize? (window.innerHeight/2 + containerSize.heightPx * LAPTOP_DESK_FROM_CENTER) /window.innerHeight *100 + 'vh' : 'auto'
   }
 
-  return (<div className={`${(auto ? 10===step : 11===step)? 'step-diagram' : ''} ${enterLeaveClasses}`}>
+  return (<div className={`${(auto ? 10===step : 11===step)? 'step-diagram' : ''} ${enterLeaveClasses} main-container`}>
     <div className='background-gradient-top'></div>
     <div className='background-gradient-bottom' style={bottomGradientStyle}></div>
     <div className={`${auto? 'auto' : ''} laptop-container ${fitWidth? 'fit-width' : 'fit-height'}`} 
@@ -471,22 +471,22 @@ const App = ({ ws }) => {
       )}
 
       <div id="animated-stickers">
-        <div className={`sticker sticker-node ${stickerAnimation === 'node'? 'active' : ''}`}>
+        <div className={`sticker sticker-node ${stickerAnimation === 'node'? 'active-animate' : ''}`}>
           <img src={stickerNode} className='sticker-resting' />
           <img src={stickerNodeColor} className='sticker-color' />
         </div>
 
-        <div className={`sticker sticker-scala ${stickerAnimation === 'scala'? 'active' : ''}`}>
+        <div className={`sticker sticker-scala ${stickerAnimation === 'scala'? 'active-animate' : ''}`}>
           <img src={stickerScala} className='sticker-resting' />
           <img src={stickerScalaColor} className='sticker-color' />
         </div>
 
-        <div className={`sticker sticker-clojure ${stickerAnimation === 'clojure'? 'active' : ''}`}>
+        <div className={`sticker sticker-clojure ${stickerAnimation === 'clojure'? 'active-animate' : ''}`}>
           <img src={stickerClojure} className='sticker-resting' />
           <img src={stickerClojureColor} className='sticker-color' />
         </div>
         
-        <div className={`sticker sticker-ruby ${stickerAnimation === 'ruby'? 'active' : ''}`}>
+        <div className={`sticker sticker-ruby ${stickerAnimation === 'ruby'? 'active-animate' : ''}`}>
           <img src={stickerRuby} className='sticker-resting' />
           <div className='lottie sticker-color' ></div>
         </div>

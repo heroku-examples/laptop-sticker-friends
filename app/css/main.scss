@@ -143,7 +143,24 @@ body {
 }
 
 /* .step-diagram is added when the front side of the laptop is showsn*/
-.step-diagram {
+
+// .main-container {
+//   transition: opacity 300ms;
+// }
+
+.laptop-back,
+#characters,
+#regional-flags,
+#animated-stickers,
+#laptop-base-stickers,
+#submissions,
+.conf-logo,
+.laptop-front {
+  transition: opacity 300ms;
+  transition-delay: 0;
+}
+
+.step-11 {
 
   .laptop-back,
   #characters,
@@ -152,18 +169,12 @@ body {
   #laptop-base-stickers,
   #submissions,
   .conf-logo {
-    display: none;
+    opacity: 1;
   }
 
   .laptop-front {
     display: block;
-  }
-
-  .steam,
-  .background-gradient-top,
-  .background-gradient-bottom {
-    transform: rotateY(180deg);
-    // transition: transform 500ms;
+    opacity: 0;
   }
 
   .music {
@@ -174,8 +185,107 @@ body {
   .steam {
     left: 76%;
   }
+
+  .steam,
+  .background-gradient-top,
+  .background-gradient-bottom {
+    transform: rotateY(180deg);
+    // transition: transform 300ms;
+  }
+
+  &.step-changing {
+
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      opacity: 0;
+    } 
   
+    .laptop-front {
+      opacity: 1;
+    }
+  
+  }
+
+  &.step-changed {
+  
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      display: none;
+    }
+  
+    .laptop-front {
+      opacity: 1;
+    }
+    
+  }
+
 }
+
+.prev-step-11 {
+
+  .laptop-back,
+  #characters,
+  #regional-flags,
+  #animated-stickers,
+  #laptop-base-stickers,
+  #submissions,
+  .conf-logo {
+    opacity: 0;
+  }
+
+  .laptop-front {
+    display: block;
+    opacity: 1;
+  }
+
+  &.step-changing {
+
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      opacity: 1;
+    } 
+
+    .laptop-front {
+      opacity: 0;
+    }
+  
+   }
+
+  &.step-changed {
+  
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+       opacity: 1;
+    }
+
+    .laptop-front {
+      display: none;
+    }
+    
+  }
+
+}
+
 
 @keyframes flip {
   0% {
@@ -266,7 +376,7 @@ body {
   }
 }
 
-#animated-stickers .sticker.active img {
+#animated-stickers .sticker.active-animate img {
   transition: opacity 300ms ease-in;
 }
 
@@ -357,7 +467,7 @@ body {
   top: 41%;
   width: 4.5%;
 
-  &.active {
+  &.active-animate {
     animation: bounce 500ms linear;
 
     .sticker-resting {
@@ -382,7 +492,7 @@ body {
   top: 47%;
   width: 3.2%;
 
-  &.active {
+  &.active-animate {
     animation: wiggle 500ms linear; 
     .sticker-resting {
       opacity: 0;
@@ -405,7 +515,7 @@ body {
   width: 4.6em;
   height: 4.6em;
 
-  &.active {
+  &.active-animate {
     animation: spin 500ms linear; 
     .sticker-resting {
       opacity: 0;
@@ -430,7 +540,7 @@ body {
     transition: opacity 300ms ease-in;
   }
 
-  &.active {
+  &.active-animate {
     .sticker-resting {
       opacity: 1;
     }
@@ -451,6 +561,21 @@ body {
   font-size: 4em;
   z-index: 2;
 }
+
+// #architecture-diagram {
+//   display: none;
+//   opacity: 0;
+
+//   .step-diagram.step-changing & {
+//     display: none;
+//   }
+
+//   .step-diagram.step-changed & {
+//     display: block;
+//     opacity: 1;
+//   }
+
+// }
 
 #architecture-diagram .diagram-image {
   top: 28.8%;
