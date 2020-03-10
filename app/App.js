@@ -292,18 +292,18 @@ const App = ({ ws }) => {
       setNextStickerAnimation(next)
     }
     setEntered(true) //stopping the timer
-    setEnterLeaveClasses(`${!_.isNil(prevStep)? 'leaving prev-step-' + prevStep : ''} entering step-${step}`)
+    setEnterLeaveClasses(`${!_.isNil(prevStep)? 'prev-step-' + prevStep : ''} step-changing  step-${step}`)
     setEntered(false)
   }, [step])
 
   useInterval(
     () => {
       setEnterLeaveClasses((prev) => {
-        return prev.replace('leaving', 'left').replace('entering', 'entered')
+        return prev.replace('changing', 'changed')//.replace('entering', 'entered')
       })
       setEntered(true)
     },
-    entered===false? 100 : null
+    entered===false? 300 : null
   )
 
   useEffect(()=>{

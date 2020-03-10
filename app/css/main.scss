@@ -257,7 +257,7 @@ body {
 
 .sticker {
   position: absolute;
-  
+
   img {
     position: absolute;
     transition: opacity 300ms ease-in 100ms;
@@ -279,50 +279,49 @@ body {
   left: 39.8%;
   top: 38.1%;
   width: 5.8%;
-}
 
-.step-1 .sticker-python {
-  .sticker-resting {
-    opacity: 0;
+  .step-1 & {
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+      transform: scale(1.05) rotate(-5deg);
+    }
   }
-  .sticker-color {
-    opacity: 1;
-    transform: scale(1.05) rotate(-5deg);
-  }
+
 }
 
 .sticker-go {
   left: 39.1%;
   top: 53.8%;
   width: 5.7%;
-}
 
-.step-2 .sticker-go, 
-.step-7 .sticker-go {
-  .sticker-resting {
-    opacity: 0;
+  .step-2 &,
+  .step-7 & {
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+      transform: scale(1.05) rotate(5deg);
+    }
   }
-
-  .sticker-color {
-    opacity: 1;
-    transform: scale(1.05) rotate(5deg);
-  }
 }
-
 
 .sticker-java {
   left: 56.1%;
   top: 32.5%;
   width: 9.5%;
-}
 
-.step-4 .sticker-java {
-  .sticker-resting {
-    opacity: 0;
-  }
-  .sticker-color {
-    opacity: 1;
-    transform: scale(1.05) rotate(5deg);
+  .step-4 & {
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+      transform: scale(1.05) rotate(5deg);
+    }
   }
 }
 
@@ -330,18 +329,18 @@ body {
   left: 28.5%;
   top: 62%;
   width: 11.7%;
-}
 
-.step-5 .sticker-php,
-.step-6 .sticker-php,
-.step-9:not(.auto) .sticker-php,
-.auto.step-8 .sticker-php {
-  .sticker-resting {
-    opacity: 0;
-  }
-  .sticker-color {
-    opacity: 1;
-    transform: scale(1.05) rotate(-5deg);
+  .step-5 &,
+  .step-6 &, 
+  .step-9:not(.auto) &,
+  .auto.step-8 & {
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+      transform: scale(1.05) rotate(-5deg);
+    }
   }
 }
 
@@ -405,15 +404,15 @@ body {
   /* They are in em because rotation doesn't work well without a specific width and height and can't rely on % or vh/vw */
   width: 4.6em;
   height: 4.6em;
-}
 
-.sticker-clojure.active {
-  animation: spin 500ms linear; 
-  .sticker-resting {
-    opacity: 0;
-  }
-  .sticker-color {
-    opacity: 1;
+  &.active {
+    animation: spin 500ms linear; 
+    .sticker-resting {
+      opacity: 0;
+    }
+    .sticker-color {
+      opacity: 1;
+    }
   }
 }
 
@@ -569,8 +568,8 @@ body {
   font-size: 1.3em;
   color: #5D32A4;
   border-radius: 0.7em;
-  opacity: 1;
-  transition: opacity 200ms ease-in-out 300ms, font-size 0.2s ease-in-out;
+  display: none;
+  transition: opacity 300ms ease-in-out;
 
   &.char-1 {
     left: 46%;
@@ -732,30 +731,30 @@ body {
     position: absolute;
     border-radius: 5px;
     border: solid 0.11em rgb(216,207,227);
-  }
 
-  img:nth-child(1) {
-    top: 27%;
-    left: 31%;
-    transform: rotate(-24deg);
-  }
+    &:nth-child(1) {
+      top: 27%;
+      left: 31%;
+      transform: rotate(-24deg);
+    }
 
-  img:nth-child(2) {
-    top: 29%;
-    left: 47%;
-    transform: rotate(12deg);
-  }
+    &:nth-child(2) {
+      top: 29%;
+      left: 47%;
+      transform: rotate(12deg);
+    }
 
-  img:nth-child(3) {
-    top: 54%;
-    left: 57%;
-    transform: rotate(27deg);
-  }
+    &:nth-child(3) {
+      top: 54%;
+      left: 57%;
+      transform: rotate(27deg);
+    }
 
-  img:nth-child(4) {
-    top: 64%;
-    left: 46%;
-    transform: rotate(-17deg);
+    &:nth-child(4) {
+      top: 64%;
+      left: 46%;
+      transform: rotate(-17deg);
+    }
   }
 
 }
