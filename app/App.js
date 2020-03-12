@@ -111,7 +111,6 @@ const App = ({ ws }) => {
   const [showZoomedDiagram, setShowZoomedDiagram] = useState(false)
   const [characters, setCharacters] = useState(null)
   const [step, setStep] = useState(INITIAL_STEP)
-  // const [prevStep, setPrevStep] = useState(null)
   const [auto, setAuto] = useState(INITIAL_AUTO)
   const [status, setStatus] = useState()
   const [region] = useState(config.region)
@@ -121,7 +120,7 @@ const App = ({ ws }) => {
   const [stickerAnimation, setStickerAnimation] = useState(null)
   const [nextStickerAnimation, setNextStickerAnimation] = useState(null)
   const [enterLeaveClasses, setEnterLeaveClasses] = useState('')
-  const [entered, setEntered] = useState(true)
+  const [stepStatus, setStepStatus] = useState(null)
 
   const prevStep = usePrevious(step)
 
@@ -291,19 +290,33 @@ const App = ({ ws }) => {
       let next = nextStickerAnimation || STICKER_ANIMATION_LIST[0];
       setNextStickerAnimation(next)
     }
-    setEntered(true) //stopping the timer
-    setEnterLeaveClasses(`${!_.isNil(prevStep)? 'prev-step-' + prevStep : ''} step-changing  step-${step}`)
-    setEntered(false)
+
+    setStepStatus('before-change');
+    setEnterLeaveClasses(`${!_.isNil(prevStep)? 'prev-step-' + prevStep : ''} step-before-change  step-${step}`)
+    
   }, [step])
+
 
   useInterval(
     () => {
-      setEnterLeaveClasses((prev) => {
-        return prev.replace('changing', 'changed')//.replace('entering', 'entered')
-      })
-      setEntered(true)
+      if (stepStatus==='before-change') {
+        
+        setEnterLeaveClasses((prev) => {
+          return prev.replace('before-change', 'changing')
+        })
+        setStepStatus('changing')
+
+      } else if(stepStatus==='changing') {
+
+        setEnterLeaveClasses((prev) => {
+          return prev.replace('changing', 'changed')
+        })
+        setStepStatus('changed')
+
+      }
     },
-    entered===false? 500 : null
+    stepStatus==='before-change'? 
+      50 : (stepStatus==='changing'? 500 : null)
   )
 
   useEffect(()=>{
@@ -397,14 +410,14 @@ const App = ({ ws }) => {
         </h1>
       )}
       <div id="architecture-diagram" 
-           className={`${showZoomedDiagram?'zoomed-in':''} ${getSequenceClasses({showOn: [auto ? 10 : 11]})}`}
+           className={`${showZoomedDiagram?'zoomed-in':''}`}
            onClick={() => showZoomedDiagram && toggleZoom()}>
           <div className="diagram-zoomedin-background"></div>
           <img src={architectureDiagramZoom} className="zoomed-architecture-diagram" />
-          <div className="diagram-clickable-area" onClick={toggleZoom}></div>
           <div className="diagram-background"></div>
           <img className="diagram-image" src={architectureDiagram} />
       </div>
+      <div className="diagram-clickable-area" onClick={toggleZoom}></div>
 
       <div id="regional-flags">
         <Flag region={region} />
@@ -454,7 +467,7 @@ const App = ({ ws }) => {
             </div>
             <div className={`talk-bubble char-4 ${getSequenceClasses({showOn:[6]})}`}>
               Or used across these three together! Heroku makes it easy to use
-              that data in apps built with all those programming languages Gophie
+              that data in apps built with all those programming languages Gopher
               mentioned before.
             </div>
             <div className={`talk-bubble char-2 ${getSequenceClasses({showOn:[7]})}`}>

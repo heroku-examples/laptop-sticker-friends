@@ -1,0 +1,210 @@
+
+:root {
+  --step-delay: 250ms;
+}
+
+
+@keyframes flip3{
+  0% {
+
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotateY(-90deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotateY(0deg);
+  }
+}
+
+.step-11,
+.prev-step-11 {
+
+  &.step-changing {
+    
+    .laptop-container {
+      animation: flip3 calc(var(--step-delay)*2) linear;
+    }
+  }
+
+  &.step-changed {
+    transition: none;
+  }
+
+}
+
+
+.step-11 {
+  
+  .laptop-front,
+   #architecture-diagram {
+    display: block;
+    visibility: hidden;
+  }
+  
+  .diagram-clickable-area {
+    display: block;
+  }
+
+  &.step-changing {
+
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      transition-delay: var(--step-delay);
+      visibility: hidden;
+    } 
+
+    .laptop-front,
+    #architecture-diagram {
+      transition-delay: var(--step-delay);
+      visibility: visible;
+    }
+
+    // .music {
+    //   left: 4%;
+    //   top: 50%;
+    // }
+    
+    // .steam {
+    //   left: 76%;
+    // }
+
+    #QR-code,
+    #QR-code-url {
+      opacity: 0;
+      animation: none;
+    }
+
+  }
+
+  &.step-changed {
+  
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      display: none;
+    }
+
+    .laptop-front,
+    #architecture-diagram {
+      transition-delay: 0;
+      transition-duration: 0;
+      visibility: visible;
+    }
+    
+    .music {
+      left: 4%;
+      top: 50%;
+    }
+    
+    .steam {
+      left: 76%;
+    }
+
+    .steam,
+    .background-gradient-top,
+    .background-gradient-bottom {
+      transform: rotateY(180deg);
+    }
+
+  }
+
+}
+
+.prev-step-11 {
+
+  .laptop-front,
+  #architecture-diagram {
+    display: block;
+  }
+
+  .laptop-back,
+  #characters,
+  #regional-flags,
+  #animated-stickers,
+  #laptop-base-stickers,
+  #submissions,
+  .conf-logo {
+    display: block;
+    visibility: hidden;
+  }
+
+  .steam,
+  .background-gradient-top,
+  .background-gradient-bottom {
+    transform: rotateY(180deg);
+  }
+
+  
+  &.step-changing {
+    
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      transition-property: visibility;
+      transition-delay: var(--step-delay);
+      visibility: visible;
+    } 
+
+    .laptop-front {
+      transition-property: visibility;
+      transition-delay: var(--step-delay);
+      visibility: hidden;
+    }
+
+    #architecture-diagram {
+      z-index: -1;
+      transition-property: visibility;
+      transition-delay: var(--step-delay);
+      visibility: hidden;
+    }
+
+    #QR-code,
+    #QR-code-url {
+      opacity: 0;
+      animation: none;
+    }
+
+  }
+
+  &.step-changed {
+
+    .laptop-back,
+    #characters,
+    #regional-flags,
+    #animated-stickers,
+    #laptop-base-stickers,
+    #submissions,
+    .conf-logo {
+      visibility: visible;
+      transform: none;
+    }
+
+    .laptop-front,
+    #architecture-diagram {
+      display: none;
+    }
+
+    .steam,
+    .background-gradient-top,
+    .background-gradient-bottom {
+      transform: rotateY(0);
+    }
+
+  }
+
+}
