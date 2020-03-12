@@ -12,7 +12,7 @@ import CommandHelp from './CommandHelp'
 import laptopBackSvg from './images/laptop-back.svg'
 import laptopFrontSvg from './images/laptop-front.svg'
 
-// import testImage from './images/test-image.png'
+import testImage from './images/test.png'
 
 import useAnimation from './useAnimation';
 import stickerGo from './images/stickers/languages/go.svg';
@@ -403,6 +403,7 @@ const App = ({ ws }) => {
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
         ))}
+        <img src={testImage} />
       </div>
       {auto && (
         <h1 className={`auto-title ${getSequenceClasses({showOn: ['all'], hideOn:[3]})}`}>

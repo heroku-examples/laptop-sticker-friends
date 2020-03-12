@@ -4,15 +4,10 @@
 }
 
 
-@keyframes flip3{
-  0% {
-
-  }
-
+@keyframes flipLaptop{
   50% {
     transform: translate(-50%, -50%) rotateY(-90deg);
   }
-
   100% {
     transform: translate(-50%, -50%) rotateY(0deg);
   }
@@ -24,7 +19,7 @@
   &.step-changing {
     
     .laptop-container {
-      animation: flip3 calc(var(--step-delay)*2) linear;
+      animation: flipLaptop calc(var(--step-delay)*2) linear;
     }
   }
 
@@ -65,15 +60,6 @@
       transition-delay: var(--step-delay);
       visibility: visible;
     }
-
-    // .music {
-    //   left: 4%;
-    //   top: 50%;
-    // }
-    
-    // .steam {
-    //   left: 76%;
-    // }
 
     #QR-code,
     #QR-code-url {
@@ -144,7 +130,6 @@
   .background-gradient-bottom {
     transform: rotateY(180deg);
   }
-
   
   &.step-changing {
     
