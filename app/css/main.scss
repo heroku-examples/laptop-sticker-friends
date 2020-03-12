@@ -438,10 +438,6 @@ body {
 #architecture-diagram {
   display: none;
 
-  .prev-step-11.step-changing & {
-    z-index: 0;
-  }
-
   &.zoomed-in {
     z-index: 20;
   }
@@ -728,8 +724,8 @@ body {
     width: 8%;
     z-index: 4;
     position: absolute;
-    border-radius: 5px;
-    border: solid 0.11em rgb(216,207,227);
+    border-radius: 9px;
+    border: solid 0.12em #d8cfe3;
 
     &:nth-child(1) {
       top: 27%;

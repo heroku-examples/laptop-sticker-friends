@@ -12,8 +12,6 @@ import CommandHelp from './CommandHelp'
 import laptopBackSvg from './images/laptop-back.svg'
 import laptopFrontSvg from './images/laptop-front.svg'
 
-import testImage from './images/test.png'
-
 import useAnimation from './useAnimation';
 import stickerGo from './images/stickers/languages/go.svg';
 import stickerClojure from './images/stickers/languages/clojure.svg';
@@ -31,7 +29,6 @@ import stickerPhpColor from './images/stickers/languages/color/php.svg';
 import stickerNodeColor from './images/stickers/languages/color/node.svg';
 import stickerPythonColor from './images/stickers/languages/color/python.svg';
 import stickerScalaColor from './images/stickers/languages/color/scala.svg';
-
 
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.svg'
@@ -63,6 +60,9 @@ const INITIAL_AUTO = false
 const STICKER_ANIMATION_TIME_BETWEEN = 7000
 const STICKER_ANIMATION_STOP_AFTER = 4000 // This is how long a sticker stays active
 const STICKER_ANIMATION_LIST = _.shuffle(['node', 'scala', 'clojure', 'ruby'])
+
+const STEP_BEFORE_CHANGE_DURATION = 50
+const STEP_CHANGING_DURATION = 500
 
 const LAPTOP_DESK_FROM_CENTER = 0.145 
 // The distance from the center of the laptop image to the part desk starts is 14.5% of the image height.
@@ -250,6 +250,9 @@ const App = ({ ws }) => {
   }
 
 
+  /**
+   * Using the laptop image as the base size ratio of the container
+   */
   useEffect(() => {
     let handler
     const img = new Image()
@@ -259,7 +262,6 @@ const App = ({ ws }) => {
       handler = _.debounce(resizeHandler.bind(null, ratio), 500)
       window.addEventListener('resize', handler)
     }
-    //Using the laptop background imagage as the base size ratio of the container
     img.src = laptopBackSvg
     return () => {
       window.removeEventListener('resize', handler)
@@ -292,11 +294,20 @@ const App = ({ ws }) => {
     }
 
     setStepStatus('before-change');
+    //Transitioning to the next step so adding classes
     setEnterLeaveClasses(`${!_.isNil(prevStep)? 'prev-step-' + prevStep : ''} step-before-change  step-${step}`)
     
   }, [step])
 
 
+  /**
+   * When the view goes to the next step, 
+   * 1. "before-change", "prev-step-{prevStep}" and "step-{step}" class is added to the main container
+   * 2. After 50ms, "step-chainging" is added to the main container and "before-change" gets removed
+   * 3. Finally, after 500ms, "step-changed" gets added to the main conainter and "step-changing" gets removed.
+   * 
+   * These classes are mainy for animations
+   */
   useInterval(
     () => {
       if (stepStatus==='before-change') {
@@ -316,7 +327,7 @@ const App = ({ ws }) => {
       }
     },
     stepStatus==='before-change'? 
-      50 : (stepStatus==='changing'? 500 : null)
+      STEP_BEFORE_CHANGE_DURATION : (stepStatus==='changing'? STEP_CHANGING_DURATION : null)
   )
 
   useEffect(()=>{
@@ -330,8 +341,10 @@ const App = ({ ws }) => {
     () => {
       const nextIndex = getNextAnimationIndex(nextStickerAnimation)
       const nextAnimation = STICKER_ANIMATION_LIST[nextIndex]
+      
       setNextStickerAnimation(nextAnimation)
       setStickerAnimation(nextAnimation)
+
       if (animations && nextAnimation === 'ruby') {
         animations.ruby.play()
       } else if (animations) {
@@ -341,6 +354,7 @@ const App = ({ ws }) => {
     step===0? STICKER_ANIMATION_TIME_BETWEEN : null
   )
 
+  //Animation stops after some time
   useInterval(
     () => {
       setStickerAnimation(null)
@@ -357,6 +371,9 @@ const App = ({ ws }) => {
     setShowZoomedDiagram((prev) => !prev)
   }
 
+  /**
+   * This method returns the correct classes based on the current step
+   */
   const getSequenceClasses = ({showOn = [], hideOn = []}) => {
     let classNames = ['step-item']
     if (showOn[0] === 'all' || showOn.indexOf(step) > -1) {
@@ -403,7 +420,6 @@ const App = ({ ws }) => {
         {submissions.map(([k, v]) => (
           <img key={k} src={v} />
         ))}
-        <img src={testImage} />
       </div>
       {auto && (
         <h1 className={`auto-title ${getSequenceClasses({showOn: ['all'], hideOn:[3]})}`}>

@@ -7,7 +7,7 @@ In order to speed up local development, env vars can be written to a `.env` file
 A helper file is included to write the necessary values to the `.env` file:
 
 ```sh
-./bin/write-env friends-from-the-trail-staging
+./bin/write-env laptop-sticker-friends
 ```
 
 ### Using a Local Database

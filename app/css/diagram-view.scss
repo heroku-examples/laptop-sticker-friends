@@ -1,4 +1,8 @@
 
+/**
+This file is just for the rotation animation on the step 11 of the diagram view.
+*/
+
 :root {
   --step-delay: 250ms;
 }
@@ -28,7 +32,6 @@
   }
 
 }
-
 
 .step-11 {
   
@@ -107,6 +110,7 @@
 
 }
 
+//When you leave step 11
 .prev-step-11 {
 
   .laptop-front,
