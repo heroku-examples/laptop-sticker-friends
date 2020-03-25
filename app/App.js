@@ -32,7 +32,7 @@ import stickerScalaColor from './images/stickers/languages/color/scala.svg';
 
 import logos from './images/logos.svg'
 import architectureDiagram from './images/architecture-diagram.svg'
-import architectureDiagramZoom from './images/zoomed-diagram.png'
+import architectureDiagramZoom from './images/architecture-diagram-zoom.svg'
 
 import flagHeroku from './images/stickers/flags/heroku.svg'
 import flagOregon from './images/stickers/flags/oregon.svg'
